@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ATL TV — Apresentação de Projetos</title>
+<style>
+  :root {
+    --bg: #0b0b0d;
+    --surface: #141416;
+    --surface-2: #17171a;
+    --line: #262629;
+    --line-soft: #232326;
+    --text: #ffffff;
+    --text-2: #e5e5e7;
+    --muted: #8a8a8f;
+    --accent: #2dd4ee;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    margin: 0;
+    padding: 56px 24px 80px;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+    color: var(--text-2);
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 900px; margin: 0 auto; }
+
+  /* ---------- Cover ---------- */
+  .cover { padding: 24px 4px 40px; border-bottom: 1px solid var(--line); margin-bottom: 44px; }
+  .kicker {
+    color: var(--accent); font-size: 12px; font-weight: 700;
+    letter-spacing: 0.22em; text-transform: uppercase; margin-bottom: 18px;
+  }
+  .brand {
+    color: var(--text); font-size: 64px; font-weight: 800;
+    letter-spacing: -0.02em; line-height: 1; margin: 0 0 16px;
+  }
+  .brand span { color: var(--accent); }
+  .subtitle { color: var(--muted); font-size: 15px; font-weight: 500; letter-spacing: 0.01em; }
+
+  /* ---------- Overview ---------- */
+  .section-tag {
+    display: flex; align-items: center; gap: 9px;
+    color: var(--text); font-size: 13px; font-weight: 700;
+    letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 16px;
+  }
+  .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); flex: none; }
+
+  .overview {
+    background: linear-gradient(180deg, var(--surface-2), var(--surface));
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    padding: 30px 34px;
+    margin-bottom: 56px;
+    display: flex;
+    gap: 48px;
+    flex-wrap: wrap;
+  }
+  .ov-item .ov-label {
+    color: var(--muted); font-size: 11px; font-weight: 600;
+    letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 10px;
+  }
+  .ov-item .ov-value { color: var(--text); font-size: 26px; font-weight: 800; letter-spacing: -0.01em; }
+  .ov-item .ov-value.accent { color: var(--accent); }
+  .ov-item .ov-value .rs { color: var(--muted); font-weight: 500; font-size: 15px; }
+
+  /* ---------- Project cards ---------- */
+  .project { margin-bottom: 40px; }
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--line-soft);
+    border-radius: 16px;
+    padding: 34px 40px 38px;
+  }
+  .card-title {
+    color: var(--accent); font-size: 13px; font-weight: 700;
+    letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 24px;
+  }
+  .top {
+    display: flex; justify-content: space-between; flex-wrap: wrap;
+    gap: 24px; margin-bottom: 30px;
+  }
+  .top .label {
+    color: var(--muted); font-size: 11px; font-weight: 600;
+    letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 9px;
+  }
+  .top .value { color: var(--text); font-size: 23px; font-weight: 800; letter-spacing: -0.01em; }
+  .top .value.accent { color: var(--accent); }
+
+  .orc-header {
+    display: flex; align-items: center; gap: 9px;
+    color: var(--text); font-size: 12px; font-weight: 700;
+    letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 14px;
+  }
+  hr { border: none; border-top: 1px solid var(--line); margin: 0 0 4px; }
+
+  table { width: 100%; border-collapse: collapse; }
+  th {
+    text-align: left; color: var(--muted); font-size: 10.5px;
+    letter-spacing: 0.09em; text-transform: uppercase; font-weight: 600; padding: 14px 12px;
+  }
+  th:not(:first-child), td:not(:first-child) { text-align: right; white-space: nowrap; }
+  td { padding: 15px 12px; color: var(--text-2); font-size: 15px; border-top: 1px solid var(--line-soft); }
+  tr.note td { border-top: none; padding: 2px 12px 14px; color: var(--muted); font-style: italic; font-size: 12.5px; }
+  tr.total td { border-top: 1px solid #333; font-weight: 700; padding-top: 18px; color: var(--text); }
+  .rs { color: #9a9a9f; font-weight: 400; }
+  .num { font-weight: 700; color: var(--text); }
+  .num.accent { color: var(--accent); }
+
+  /* ---------- Status das contas ---------- */
+  .status-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-bottom: 8px; }
+  .status-card {
+    background: var(--surface);
+    border: 1px solid var(--line-soft);
+    border-radius: 16px;
+    padding: 26px 26px 22px;
+  }
+  .status-top { margin-bottom: 16px; }
+  .status-card .st-label {
+    color: var(--muted); font-size: 11px; font-weight: 600;
+    letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 7px;
+  }
+  .status-card .st-value { color: var(--text); font-size: 17px; font-weight: 800; letter-spacing: -0.01em; }
+  .status-card .st-sub { color: #b5b5b9; font-size: 13px; margin-top: 5px; }
+  .checklist { list-style: none; padding: 0; margin: 0; }
+  .checklist li {
+    display: flex; justify-content: space-between; align-items: center; gap: 10px;
+    padding: 12px 0; border-top: 1px solid var(--line-soft);
+    font-size: 13.5px; color: var(--text-2);
+  }
+  .checklist li:first-child { border-top: none; }
+  .st-ok { color: var(--accent); font-weight: 700; white-space: nowrap; }
+  .st-pendente { color: #ff5c5c; font-weight: 700; white-space: nowrap; }
+
+  footer {
+    margin-top: 64px; padding-top: 22px; border-top: 1px solid var(--line);
+    color: var(--muted); font-size: 12px; letter-spacing: 0.04em; text-align: center;
+  }
+
+  @media (max-width: 900px) {
+    .status-row { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 720px) {
+    body { padding: 40px 16px 60px; }
+    .brand { font-size: 44px; }
+    .overview { grid-template-columns: repeat(2, 1fr); padding: 24px; }
+    .card { padding: 26px 22px 30px; }
+    th, td { padding-left: 8px; padding-right: 8px; font-size: 13.5px; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="cover">
+    <div class="kicker">Apresentação de Projetos</div>
+    <h1 class="brand">ATL<span>TV</span></h1>
+    <div class="subtitle">Plano de Mídia e Gestão de Tráfego &nbsp;·&nbsp; Setembro de 2026</div>
+  </header>
+
+  <div class="section-tag"><span class="dot"></span>Visão Geral</div>
+  <div class="overview">
+    <div class="ov-item">
+      <div class="ov-label">Projetos</div>
+      <div class="ov-value">02</div>
+    </div>
+  </div>
+
+  <!-- ================= ROCK DO MILÊNIO ================= -->
+  <section class="project">
+    <div class="card">
+      <div class="card-title">1 — Rock do Milênio</div>
+
+      <div class="top">
+        <div>
+          <div class="label">Mídia</div>
+          <div class="value">R$ 11.800,00</div>
+        </div>
+        <div>
+          <div class="label">Gestão de Tráfego</div>
+          <div class="value">R$ 5.700,00</div>
+        </div>
+        <div>
+          <div class="label">Total do Projeto</div>
+          <div class="value accent">R$ 17.500,00</div>
+        </div>
+      </div>
+
+      <div class="orc-header"><span class="dot"></span>Orçamento / Período</div>
+      <hr>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Fase</th>
+            <th>YouTube</th>
+            <th>Meta Ads</th>
+            <th>TikTok</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Fase 1 (Campanha Teaser)</td>
+            <td><span class="rs">R$</span> 1.000,00</td>
+            <td><span class="rs">R$</span> 900,00</td>
+            <td><span class="rs">R$</span> 400,00</td>
+          </tr>
+          <tr>
+            <td>Fase 2 [6 Episódios]</td>
+            <td><span class="rs">R$</span> 6.000,00</td>
+            <td><span class="rs">R$</span> 2.100,00</td>
+            <td><span class="rs">R$</span> 1.400,00</td>
+          </tr>
+          <tr class="note">
+            <td colspan="4">1 episódio por semana</td>
+          </tr>
+          <tr class="total">
+            <td>Total</td>
+            <td><span class="rs">R$</span> <span class="num">7.000,00</span></td>
+            <td><span class="rs">R$</span> <span class="num">3.000,00</span></td>
+            <td><span class="rs">R$</span> <span class="num accent">1.800,00</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ================= PB PROCURA ================= -->
+  <section class="project">
+    <div class="card">
+      <div class="card-title">2 — PB Procura</div>
+
+      <div class="top">
+        <div>
+          <div class="label">Mídia</div>
+          <div class="value">R$ 15.700,00</div>
+        </div>
+        <div>
+          <div class="label">Gestão de Tráfego</div>
+          <div class="value">R$ 7.700,00</div>
+        </div>
+        <div>
+          <div class="label">Total do Projeto</div>
+          <div class="value accent">R$ 23.400,00</div>
+        </div>
+      </div>
+
+      <div class="orc-header"><span class="dot"></span>Orçamento / Período</div>
+      <hr>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Fase</th>
+            <th>YouTube</th>
+            <th>Meta Ads</th>
+            <th>TikTok</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Fase 1 (Comunicação do projeto + seletivas)</td>
+            <td><span class="rs">R$</span> 1.000,00</td>
+            <td><span class="rs">R$</span> 1.100,00</td>
+            <td><span class="rs">R$</span> 500,00</td>
+          </tr>
+          <tr>
+            <td>Fase 2 (Dinâmicas) [7 Episódios]</td>
+            <td><span class="rs">R$</span> 7.000,00</td>
+            <td><span class="rs">R$</span> 2.100,00</td>
+            <td><span class="rs">R$</span> 1.400,00</td>
+          </tr>
+          <tr>
+            <td>Fase 3 (Final) [1 Episódio]</td>
+            <td><span class="rs">R$</span> 1.000,00</td>
+            <td><span class="rs">R$</span> 1.100,00</td>
+            <td><span class="rs">R$</span> 500,00</td>
+          </tr>
+          <tr class="note">
+            <td colspan="4">1 episódio por semana</td>
+          </tr>
+          <tr class="total">
+            <td>Total</td>
+            <td><span class="rs">R$</span> <span class="num">9.000,00</span></td>
+            <td><span class="rs">R$</span> <span class="num">4.300,00</span></td>
+            <td><span class="rs">R$</span> <span class="num accent">2.400,00</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ================= STATUS DAS CONTAS ================= -->
+  <div class="section-tag"><span class="dot"></span>Status das Contas</div>
+  <div class="status-row">
+
+    <div class="status-card">
+      <div class="status-top">
+        <div class="st-label">Perfil Instagram</div>
+        <div class="st-value">Novo (ATL TV)</div>
+        <div class="st-sub">Seguidores: 0</div>
+      </div>
+      <ul class="checklist">
+        <li><span>Acesso ao portfólio</span><span class="st-pendente">Pendente</span></li>
+        <li><span>Acesso à Conta de Anúncio (ou criar uma)</span><span class="st-pendente">Pendente</span></li>
+        <li><span>ID da conta para pagamentos</span><span class="st-pendente">Pendente</span></li>
+        <li><span>Créditos na conta de anúncios</span><span class="st-pendente">Pendente</span></li>
+        <li><span>Verificação do anunciante</span><span class="st-pendente">Pendente</span></li>
+      </ul>
+    </div>
+
+    <div class="status-card">
+      <div class="status-top">
+        <div class="st-label">Perfil TikTok</div>
+        <div class="st-value">Novo (ATL TV)</div>
+        <div class="st-sub">Seguidores: 0</div>
+      </div>
+      <ul class="checklist">
+        <li><span>Acesso ao portfólio</span><span class="st-pendente">Pendente</span></li>
+        <li><span>Acesso à Conta de Anúncio (ou criar uma)</span><span class="st-pendente">Pendente</span></li>
+        <li><span>ID da conta para pagamentos</span><span class="st-pendente">Pendente</span></li>
+        <li><span>Créditos na conta de anúncios</span><span class="st-pendente">Pendente</span></li>
+        <li><span>Verificação do anunciante</span><span class="st-pendente">Pendente</span></li>
+      </ul>
+    </div>
+
+    <div class="status-card">
+      <div class="status-top">
+        <div class="st-label">Canal do YouTube</div>
+        <div class="st-value">ATL TV</div>
+        <div class="st-sub">Inscritos: 309.000</div>
+      </div>
+      <ul class="checklist">
+        <li><span>Acesso ao Studio</span><span class="st-ok">OK</span></li>
+        <li><span>Acesso à Conta de Anúncio</span><span class="st-ok">OK</span></li>
+        <li><span>ID da conta para pagamentos</span><span class="st-ok">OK</span></li>
+        <li><span>Créditos na conta de anúncios</span><span class="st-pendente">Pendente</span></li>
+        <li><span>Verificação do anunciante</span><span class="st-ok">OK</span></li>
+      </ul>
+    </div>
+
+  </div>
+
+  <footer>ATL TV · Proposta comercial — documento confidencial</footer>
+
+</div>
+</body>
+</html>
