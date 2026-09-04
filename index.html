@@ -97,6 +97,7 @@
   }
   hr { border: none; border-top: 1px solid var(--line); margin: 0 0 4px; }
 
+  .table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
   table { width: 100%; border-collapse: collapse; }
   th {
     text-align: left; color: var(--muted); font-size: 10.5px;
@@ -146,9 +147,11 @@
   @media (max-width: 720px) {
     body { padding: 40px 16px 60px; }
     .brand { font-size: 44px; }
-    .overview { grid-template-columns: repeat(2, 1fr); padding: 24px; }
+    .overview { padding: 24px; }
     .card { padding: 26px 22px 30px; }
     th, td { padding-left: 8px; padding-right: 8px; font-size: 13.5px; }
+    table { min-width: 460px; }
+    .table-wrap { margin: 0 -22px; padding: 0 22px; }
   }
 </style>
 </head>
@@ -192,6 +195,7 @@
       <div class="orc-header"><span class="dot"></span>Orçamento / Período</div>
       <hr>
 
+      <div class="table-wrap">
       <table>
         <thead>
           <tr>
@@ -225,6 +229,7 @@
           </tr>
         </tbody>
       </table>
+      </div>
     </div>
   </section>
 
@@ -251,6 +256,7 @@
       <div class="orc-header"><span class="dot"></span>Orçamento / Período</div>
       <hr>
 
+      <div class="table-wrap">
       <table>
         <thead>
           <tr>
@@ -290,6 +296,7 @@
           </tr>
         </tbody>
       </table>
+      </div>
     </div>
   </section>
 
