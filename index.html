@@ -104,7 +104,9 @@
     letter-spacing: 0.09em; text-transform: uppercase; font-weight: 600; padding: 14px 12px;
   }
   th:not(:first-child), td:not(:first-child) { text-align: right; white-space: nowrap; }
+  th.italic { font-style: italic; }
   td { padding: 15px 12px; color: var(--text-2); font-size: 15px; border-top: 1px solid var(--line-soft); }
+  td.italic { font-style: italic; color: #c8c8cc; }
   tr.note td { border-top: none; padding: 2px 12px 14px; color: var(--muted); font-style: italic; font-size: 12.5px; }
   tr.total td { border-top: 1px solid #333; font-weight: 700; padding-top: 18px; color: var(--text); }
   .rs { color: #9a9a9f; font-weight: 400; }
@@ -150,7 +152,7 @@
     .overview { padding: 24px; }
     .card { padding: 26px 22px 30px; }
     th, td { padding-left: 8px; padding-right: 8px; font-size: 13.5px; }
-    table { min-width: 460px; }
+    table { min-width: 560px; }
     .table-wrap { margin: 0 -22px; padding: 0 22px; }
   }
 </style>
@@ -203,6 +205,7 @@
             <th>YouTube</th>
             <th>Meta Ads</th>
             <th>TikTok</th>
+            <th class="italic">Total</th>
           </tr>
         </thead>
         <tbody>
@@ -211,21 +214,24 @@
             <td><span class="rs">R$</span> 1.000,00</td>
             <td><span class="rs">R$</span> 900,00</td>
             <td><span class="rs">R$</span> 400,00</td>
+            <td class="italic"><span class="rs">R$</span> 2.300,00</td>
           </tr>
           <tr>
             <td>Fase 2 [6 Episódios]</td>
             <td><span class="rs">R$</span> 6.000,00</td>
             <td><span class="rs">R$</span> 2.100,00</td>
             <td><span class="rs">R$</span> 1.400,00</td>
+            <td class="italic"><span class="rs">R$</span> 9.500,00</td>
           </tr>
           <tr class="note">
-            <td colspan="4">1 episódio por semana</td>
+            <td colspan="5">1 episódio por semana</td>
           </tr>
           <tr class="total">
             <td>Total</td>
             <td><span class="rs">R$</span> <span class="num">7.000,00</span></td>
             <td><span class="rs">R$</span> <span class="num">3.000,00</span></td>
-            <td><span class="rs">R$</span> <span class="num accent">1.800,00</span></td>
+            <td><span class="rs">R$</span> <span class="num">1.800,00</span></td>
+            <td class="italic"><span class="rs">R$</span> <span class="num accent">11.800,00</span></td>
           </tr>
         </tbody>
       </table>
@@ -264,35 +270,40 @@
             <th>YouTube</th>
             <th>Meta Ads</th>
             <th>TikTok</th>
+            <th class="italic">Total</th>
           </tr>
         </thead>
         <tbody>
           <tr>
             <td>Fase 1 (Comunicação do projeto + seletivas)</td>
-            <td><span class="rs">R$</span> 1.000,00</td>
-            <td><span class="rs">R$</span> 1.100,00</td>
+            <td><span class="rs">R$</span> 2.000,00</td>
+            <td><span class="rs">R$</span> 1.800,00</td>
             <td><span class="rs">R$</span> 500,00</td>
+            <td class="italic"><span class="rs">R$</span> 4.300,00</td>
           </tr>
           <tr>
             <td>Fase 2 (Dinâmicas) [7 Episódios]</td>
-            <td><span class="rs">R$</span> 7.000,00</td>
-            <td><span class="rs">R$</span> 2.100,00</td>
+            <td><span class="rs">R$</span> 6.000,00</td>
+            <td><span class="rs">R$</span> 1.500,00</td>
             <td><span class="rs">R$</span> 1.400,00</td>
+            <td class="italic"><span class="rs">R$</span> 8.900,00</td>
           </tr>
           <tr>
             <td>Fase 3 (Final) [1 Episódio]</td>
             <td><span class="rs">R$</span> 1.000,00</td>
-            <td><span class="rs">R$</span> 1.100,00</td>
+            <td><span class="rs">R$</span> 1.000,00</td>
             <td><span class="rs">R$</span> 500,00</td>
+            <td class="italic"><span class="rs">R$</span> 2.500,00</td>
           </tr>
           <tr class="note">
-            <td colspan="4">1 episódio por semana</td>
+            <td colspan="5">1 episódio por semana</td>
           </tr>
           <tr class="total">
             <td>Total</td>
             <td><span class="rs">R$</span> <span class="num">9.000,00</span></td>
             <td><span class="rs">R$</span> <span class="num">4.300,00</span></td>
-            <td><span class="rs">R$</span> <span class="num accent">2.400,00</span></td>
+            <td><span class="rs">R$</span> <span class="num">2.400,00</span></td>
+            <td class="italic"><span class="rs">R$</span> <span class="num accent">15.700,00</span></td>
           </tr>
         </tbody>
       </table>
