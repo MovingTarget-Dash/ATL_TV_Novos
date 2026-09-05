@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Rock do Milênio — Um documentário original</title>
+<meta name="description" content="Rock do Milênio: documentário original da ATL TV sobre a cena de rock de Porto Alegre entre o fim dos anos 90 e o início dos 2000.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Barlow+Condensed:wght@300;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --rm-black: #0D0D0D;
+    --rm-black-raise: #161613;
+    --rm-bone: #F5F1E8;
+    --rm-amber: #D99A4E;
+    --rm-text-2: #9A958A;
+    --rm-muted: #6B665A;
+    --rm-border: #2A2A26;
+    --rm-border-dash: #55503F;
+
+    --font-display: 'Anton', sans-serif;
+    --font-sub: 'Barlow Condensed', sans-serif;
+    --font-mono: 'Space Mono', monospace;
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0; background: var(--rm-black); color: var(--rm-bone);
+    font-family: var(--font-mono); -webkit-font-smoothing: antialiased; overflow-x: hidden;
+  }
+  img { max-width: 100%; display: block; }
+  .wrap { max-width: 1200px; margin: 0 auto; padding: 0 40px; }
+  section { position: relative; }
+  h1, h2, h3 { font-family: var(--font-display); font-weight: 400; margin: 0; text-transform: uppercase; letter-spacing: 1px; }
+
+  .concrete {
+    background:
+      radial-gradient(circle at 18% 25%, rgba(255,255,255,0.05), transparent 42%),
+      radial-gradient(circle at 82% 70%, rgba(255,255,255,0.05), transparent 45%),
+      radial-gradient(circle at 50% 90%, rgba(255,255,255,0.03), transparent 50%),
+      var(--rm-black);
+  }
+  .grain { background-image: repeating-radial-gradient(circle at center, rgba(255,255,255,0.05) 0, transparent 1px); background-size: 3px 3px; }
+  .splat { position: absolute; background: var(--rm-bone); opacity: 0.9; border-radius: 50%; filter: blur(0.3px); }
+
+  .eyebrow { font-family: var(--font-display); font-size: 13px; letter-spacing: 2px; color: var(--rm-amber); margin-bottom: 14px; }
+  .eyebrow.on-bone { color: var(--rm-black); }
+
+  .btn-pill {
+    display: inline-flex; align-items: center; gap: 10px; font-family: var(--font-mono); font-weight: 700;
+    font-size: 13px; letter-spacing: 0.5px; padding: 15px 28px; text-decoration: none; text-transform: uppercase;
+    background: var(--rm-bone); color: var(--rm-black); border: 1px solid var(--rm-bone);
+    transition: background .25s ease, color .25s ease, transform .25s ease;
+  }
+  .btn-pill:hover { background: transparent; color: var(--rm-bone); transform: translateY(-2px); }
+  .btn-pill.outline { background: transparent; color: var(--rm-bone); }
+  .btn-pill.outline:hover { background: var(--rm-bone); color: var(--rm-black); }
+
+  /* image treatment */
+  .grade-atual { filter: sepia(0.35) saturate(1.35) contrast(1.1) brightness(0.95); }
+  .grade-archive { filter: sepia(0.5) saturate(1.1) contrast(1.3) grayscale(0.2); }
+  .scanlines { position: absolute; inset: 0; background: repeating-linear-gradient(0deg, rgba(0,0,0,0.25) 0px, rgba(0,0,0,0.25) 1px, transparent 1px, transparent 3px); mix-blend-mode: overlay; pointer-events: none; animation: scan-drift 6s linear infinite; }
+  @keyframes scan-drift { from { background-position: 0 0; } to { background-position: 0 40px; } }
+  .vignette-in { position: absolute; inset: 0; box-shadow: inset 0 0 60px 20px rgba(0,0,0,0.65); pointer-events: none; }
+
+  /* scroll reveal */
+  [data-reveal] { opacity: 0; transform: translateY(30px); transition: opacity .8s cubic-bezier(.2,.7,.3,1), transform .8s cubic-bezier(.2,.7,.3,1); }
+  [data-reveal].in-view { opacity: 1; transform: translateY(0); }
+
+  /* nav */
+  .nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 22px 40px; transition: background .35s ease, padding .35s ease; }
+  .nav.solid { background: rgba(13,13,13,0.92); backdrop-filter: blur(6px); padding: 14px 40px; border-bottom: 1px solid var(--rm-border); }
+  .nav-mark { font-family: var(--font-display); font-size: 16px; letter-spacing: 1px; color: var(--rm-bone); text-decoration: none; }
+  .nav-mark span { color: var(--rm-amber); }
+  .nav-links { display: flex; gap: 30px; }
+  .nav-links a { color: var(--rm-bone); opacity: .7; text-decoration: none; font-size: 12px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; transition: opacity .2s, color .2s; }
+  .nav-links a:hover { opacity: 1; color: var(--rm-amber); }
+  @media (max-width: 720px) { .nav-links { display: none; } }
+
+  /* hero */
+  .hero { position: relative; overflow: hidden; padding: 130px 40px 0; }
+  .hero-inner { max-width: 1000px; margin: 0 auto; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 22px; padding-bottom: 70px; }
+  .hero-eyebrow { font-family: var(--font-display); font-size: clamp(14px,2vw,20px); letter-spacing: 3px; color: var(--rm-bone); opacity: 0; animation: fadeUp .8s ease .1s forwards; }
+  .hero h1 { font-size: clamp(52px, 10vw, 100px); line-height: 0.92; letter-spacing: 1px; opacity: 0; animation: fadeUp .9s ease .3s forwards; }
+  .hero-sub { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; justify-content: center; font-family: var(--font-sub); font-weight: 300; font-size: clamp(13px,1.6vw,16px); letter-spacing: 6px; color: #c9c4b8; text-transform: uppercase; opacity: 0; animation: fadeUp .9s ease .5s forwards; }
+  .hero-atl { font-family: var(--font-display); letter-spacing: 0.5px; font-size: 14px; color: var(--rm-black); background: var(--rm-bone); padding: 5px 9px; display: inline-flex; align-items: baseline; gap: 2px; }
+  .hero-atl .tv { font-size: 8px; background: var(--rm-black); color: var(--rm-bone); padding: 1px 3px; border-radius: 2px; margin-left: 1px; }
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(22px); } to { opacity: 1; transform: translateY(0); } }
+
+  .torn { position: relative; height: 60px; margin-top: -1px; }
+  .torn svg { position: absolute; bottom: 0; left: 0; width: 100%; height: 60px; display: block; }
+  .hero-photo { position: relative; aspect-ratio: 16/7; overflow: hidden; }
+  .hero-photo img { width: 100%; height: 100%; object-fit: cover; animation: kenburns 22s ease-in-out infinite alternate; }
+  @keyframes kenburns { from { transform: scale(1) translate(0,0); } to { transform: scale(1.08) translate(-1%,-1%); } }
+  .hero-photo::after { content:''; position:absolute; inset:0; background:linear-gradient(180deg, rgba(13,13,13,0) 70%, rgba(13,13,13,0.5) 100%); }
+
+  .scroll-cue { margin-top: 12px; color: var(--rm-text-2); font-size: 10px; letter-spacing: 2px; text-transform: uppercase; display: flex; flex-direction: column; align-items: center; gap: 8px; opacity: 0; animation: fadeUp .9s ease .9s forwards; }
+  .scroll-cue .arrow { width: 7px; height: 7px; border-right: 2px solid var(--rm-amber); border-bottom: 2px solid var(--rm-amber); transform: rotate(45deg); animation: bob 1.6s ease-in-out infinite; }
+  @keyframes bob { 0%,100% { transform: rotate(45deg) translate(0,0); } 50% { transform: rotate(45deg) translate(3px,3px); } }
+
+  /* section heading pattern */
+  .sec-head { max-width: 640px; margin-bottom: 48px; }
+  .sec-head h2 { font-size: clamp(30px, 4vw, 42px); }
+
+  /* conceito */
+  .conceito { padding-top: 90px; padding-bottom: 90px; border-top: 1px solid var(--rm-border); display: grid; grid-template-columns: minmax(0,260px) minmax(0,1fr); gap: 60px; width: 100%; }
+  .conceito > div { min-width: 0; }
+  .conceito p { font-size: 16px; line-height: 1.8; margin: 0; overflow-wrap: break-word; }
+  .conceito p.dim { color: var(--rm-text-2); }
+  .conceito .signed { text-align: right; font-family: var(--font-display); font-size: 13px; letter-spacing: 1px; color: var(--rm-amber); margin-top: -8px; }
+  @media (max-width: 780px) { .conceito { grid-template-columns: 1fr; gap: 24px; } }
+
+  .band-marquee { overflow: hidden; margin-top: 8px; -webkit-mask-image: linear-gradient(90deg, transparent, #000 4%, #000 96%, transparent); mask-image: linear-gradient(90deg, transparent, #000 4%, #000 96%, transparent); }
+  .band-track { display: flex; width: max-content; animation: bandscroll 34s linear infinite; }
+  .band-track:hover { animation-play-state: paused; }
+  .band-group { display: flex; gap: 10px; padding-right: 10px; }
+  .band-chip { border: 1px solid #3a362c; border-radius: 2px; padding: 9px 14px; font-size: 12px; font-family: var(--font-mono); font-weight: 700; color: var(--rm-bone); white-space: nowrap; display: inline-flex; gap: 6px; }
+  .band-chip span { color: var(--rm-muted); font-weight: 400; }
+  @keyframes bandscroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+  /* abertura / scene block */
+  .abertura { padding: 90px 0; }
+  .scene-box { border: 1px dashed var(--rm-border-dash); padding: 40px; position: relative; }
+  .scene-tag { position: absolute; top: -13px; left: 32px; background: var(--rm-black); padding: 0 10px; font-family: var(--font-display); font-size: 12px; letter-spacing: 2px; color: var(--rm-amber); animation: flicker 4.5s infinite; }
+  @keyframes flicker { 0%,89%,91%,100% { opacity: 1; } 90% { opacity: 0.35; } }
+  .scene-box p { font-family: var(--font-mono); font-size: 15px; line-height: 1.9; color: var(--rm-bone); margin: 0 0 14px; font-style: italic; }
+  .scene-box p:last-child { margin-bottom: 0; }
+  .scene-box .cue { color: var(--rm-amber); font-style: normal; font-weight: 700; }
+
+  /* estrutura / episodios */
+  .estrutura { padding: 90px 0; }
+  .ep-grid { display: grid; grid-template-columns: repeat(auto-fit,minmax(300px,1fr)); gap: 24px; }
+  .ep-card { background: var(--rm-black); border: 1px solid var(--rm-border); display: flex; flex-direction: column; overflow: hidden; transition: border-color .3s ease, transform .3s ease; }
+  .ep-card:hover { border-color: var(--rm-amber); transform: translateY(-4px); }
+  .ep-photo { position: relative; aspect-ratio: 16/10; overflow: hidden; }
+  .ep-photo img { width: 100%; height: 100%; object-fit: cover; transition: transform .6s ease; }
+  .ep-card:hover .ep-photo img { transform: scale(1.06); }
+  .ep-photo::after { content:''; position:absolute; inset:0; background: linear-gradient(0deg, rgba(13,13,13,0.85) 0%, rgba(13,13,13,0) 55%); }
+  .ep-tag { position: absolute; top: 14px; left: 14px; font-family: var(--font-display); font-size: 13px; letter-spacing: 2px; color: var(--rm-bone); z-index: 1; }
+  .ep-body { padding: 20px 20px 24px; }
+  .ep-body .ep-title { font-size: 22px; letter-spacing: 1px; color: var(--rm-bone); margin-bottom: 8px; }
+  .ep-body p { font-size: 13px; color: var(--rm-text-2); line-height: 1.65; margin: 0; }
+  .ep-body .kq { margin-top: 10px; padding-top: 10px; border-top: 1px solid var(--rm-border); font-size: 11.5px; color: var(--rm-muted); font-style: italic; }
+
+  /* conceito estetico + textura */
+  .estetico { padding: 90px 0; border-top: 1px solid var(--rm-border); }
+  .estetico .sec-head { max-width: 680px; }
+  .estetico p.intro { font-size: 15px; color: var(--rm-text-2); line-height: 1.8; max-width: 680px; margin: 0 0 48px; }
+  .tex-grid { display: grid; grid-template-columns: repeat(auto-fit,minmax(320px,1fr)); gap: 24px; }
+  .tex-item .frame { position: relative; aspect-ratio: 4/3; overflow: hidden; }
+  .tex-item .frame img { width: 100%; height: 100%; object-fit: cover; }
+  .tex-label { font-size: 12px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--rm-bone); margin-top: 12px; }
+  .tex-label .sub { display: block; color: var(--rm-muted); font-weight: 400; text-transform: none; letter-spacing: 0; margin-top: 3px; font-size: 12px; }
+
+  /* archive strip divider */
+  .archive-strip { position: relative; height: 340px; overflow: hidden; }
+  .archive-strip img { width: 100%; height: 100%; object-fit: cover; filter: sepia(0.4) saturate(1.1) contrast(1.15) grayscale(0.15) brightness(0.75); }
+  .archive-strip::after { content:''; position:absolute; inset:0; background: linear-gradient(0deg, var(--rm-black) 0%, rgba(13,13,13,0.55) 18%, rgba(13,13,13,0.55) 82%, var(--rm-black) 100%); }
+  .archive-strip .cap { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; text-align: center; padding: 0 24px; }
+  .archive-strip .cap span { font-family: var(--font-sub); font-weight: 300; font-size: clamp(14px,2vw,20px); letter-spacing: 6px; text-transform: uppercase; color: var(--rm-bone); text-shadow: 0 2px 20px rgba(0,0,0,.8); }
+  @media (max-width: 560px) { .archive-strip { height: 220px; } }
+
+  /* final CTA / em breve */
+  .cta-final { padding: 130px 0; text-align: center; }
+  .teaser-box { max-width: 480px; margin: 0 auto; display: flex; flex-direction: column; align-items: center; gap: 18px; padding: 56px 32px; }
+  .teaser-tag { font-family: var(--font-display); font-size: 13px; letter-spacing: 3px; color: var(--rm-amber); animation: flicker 4.5s infinite; }
+  .teaser-box h2 { font-size: clamp(34px,6vw,52px); line-height: 1.1; }
+  .teaser-box .sub2 { font-family: var(--font-sub); font-weight: 300; font-size: 13px; letter-spacing: 5px; color: #c9c4b8; text-transform: uppercase; }
+  .cta-final .btn-pill { margin-top: 12px; }
+
+  footer { border-top: 1px solid var(--rm-border); padding: 56px 40px 50px; text-align: center; font-size: 12px; color: var(--rm-muted); }
+  footer .back-btn { margin-bottom: 26px; }
+  footer p { margin: 0; }
+  footer .fine { margin-top: 10px; opacity: .8; }
+</style>
+</head>
+<body>
+
+<nav class="nav" id="nav">
+  <a href="#top" class="nav-mark">ROCK DO <span>MILÊNIO</span></a>
+  <div class="nav-links">
+    <a href="#conceito">Conceito</a>
+    <a href="#estrutura">Episódios</a>
+    <a href="#estetico">Estética</a>
+  </div>
+</nav>
+
+<header class="hero concrete grain" id="top">
+  <div class="splat" style="top:14px;left:10px;width:8px;height:8px"></div>
+  <div class="splat" style="top:34px;left:38px;width:4px;height:4px"></div>
+  <div class="splat" style="top:20px;left:60px;width:5px;height:5px"></div>
+  <div class="splat" style="top:16px;right:14px;width:9px;height:9px"></div>
+  <div class="splat" style="top:40px;right:44px;width:4px;height:4px"></div>
+  <div class="splat" style="top:26px;right:64px;width:5px;height:5px"></div>
+
+  <div class="hero-inner">
+    <div class="hero-eyebrow">// PROPOSTA //</div>
+    <h1>ROCK DO<br>MILÊNIO</h1>
+    <div class="hero-sub">Um documentário original <span class="hero-atl">ATL<span class="tv">TV</span></span></div>
+    <div class="scroll-cue">Role para descobrir<span class="arrow"></span></div>
+  </div>
+
+  <div class="torn">
+    <svg viewBox="0 0 1200 60" preserveAspectRatio="none">
+      <path d="M0,40 L40,30 L90,42 L150,26 L210,38 L270,22 L330,36 L390,24 L450,40 L510,28 L570,40 L630,24 L690,38 L750,26 L810,40 L870,28 L930,38 L990,24 L1050,40 L1110,28 L1160,38 L1200,30 L1200,60 L0,60 Z" fill="#F5F1E8"></path>
+    </svg>
+  </div>
+  <div class="hero-photo grade-atual">
+    <img src="assets/photos/hero-crowd.jpg" alt="Multidão em show de rock — Porto Alegre, anos 2000">
+  </div>
+</header>
+
+<section class="wrap conceito" id="conceito">
+  <div data-reveal="left">
+    <div class="eyebrow">// 01 — CONCEITO //</div>
+    <h2>O conceito<br>narrativo</h2>
+  </div>
+  <div style="display:flex;flex-direction:column;gap:24px" data-reveal>
+    <p>Entre o fim dos anos 90 e o início dos anos 2000, Porto Alegre fervia. Enquanto o mundo esperava a virada do milênio, a cidade era tomada por uma efervescência musical que definiria o som e o comportamento de uma geração.</p>
+    <p>Rock do Milênio nos coloca dentro desse período: imagens de arquivo inéditas e registros de backstage feitos na época. Além disso, depoimentos de quem viveu cada noite nos levam para o centro de um movimento que ocupava espaços como Opinião, Ocidente, Garagem Hermética, entre outros.</p>
+    <p class="dim">Conectando diferentes histórias e vivências, o comunicador Lelê Bortholacci surge como um narrador entre tempos, espaços e pessoas — a partir das bandas que produziu e que influenciaram sua trajetória, direta ou indiretamente.</p>
+    <p class="dim">Escolhemos focar na cena do rock de Porto Alegre nesse período para garantir mais profundidade: a cidade se consolidou como o principal polo do rock gaúcho, e nomes como Cachorro Grande, Bidê ou Balde e Ultramen ajudam a contar essa história com coesão.</p>
+    <div class="signed">— Lelê Bortholacci</div>
+    <div class="band-marquee">
+      <div class="band-track">
+        <div class="band-group">
+          <span class="band-chip">Comunidade Nin-Jitsu <span>1995</span></span>
+          <span class="band-chip">Reação em Cadeia <span>1999</span></span>
+          <span class="band-chip">Fresno <span>1999</span></span>
+          <span class="band-chip">Acústicos &amp; Valvulados <span>1991</span></span>
+          <span class="band-chip">Cachorro Grande <span>1999</span></span>
+          <span class="band-chip">Bidê ou Balde <span>1998</span></span>
+          <span class="band-chip">Ultramen <span>1991</span></span>
+          <span class="band-chip">Vera Loca <span>2002</span></span>
+          <span class="band-chip">Tequila Baby <span>1994</span></span>
+          <span class="band-chip">Tópaz <span>2003</span></span>
+        </div>
+        <div class="band-group" aria-hidden="true">
+          <span class="band-chip">Comunidade Nin-Jitsu <span>1995</span></span>
+          <span class="band-chip">Reação em Cadeia <span>1999</span></span>
+          <span class="band-chip">Fresno <span>1999</span></span>
+          <span class="band-chip">Acústicos &amp; Valvulados <span>1991</span></span>
+          <span class="band-chip">Cachorro Grande <span>1999</span></span>
+          <span class="band-chip">Bidê ou Balde <span>1998</span></span>
+          <span class="band-chip">Ultramen <span>1991</span></span>
+          <span class="band-chip">Vera Loca <span>2002</span></span>
+          <span class="band-chip">Tequila Baby <span>1994</span></span>
+          <span class="band-chip">Tópaz <span>2003</span></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="abertura">
+  <div class="wrap">
+    <div class="eyebrow" data-reveal>// ABERTURA //</div>
+    <div class="sec-head" data-reveal>
+      <h2>Como tudo<br>começa</h2>
+    </div>
+    <div class="scene-box" data-reveal>
+      <span class="scene-tag">// SINAL //</span>
+      <p>Uma TV de tubo exibe uma entrevista de alguém preocupado com a virada do milênio.</p>
+      <p><span class="cue">Travelling out:</span> ao lado da TV está um aparelho de som. Uma mão liga o aparelho, que toca rock gaúcho.</p>
+      <p>A TV sofre interferência. Lelê bate na TV. Bate novamente. O rock aumenta de volume, a imagem volta e vemos arquivos mais frenéticos do final dos anos 90 e início dos 2000 — rock, cultura, shows, acontecimentos.</p>
+      <p><span class="cue">Inicia narração de Lelê.</span></p>
+    </div>
+  </div>
+</section>
+
+<section class="estrutura concrete" id="estrutura">
+  <div class="wrap">
+    <div class="eyebrow" data-reveal>// 02 — ESTRUTURA //</div>
+    <div class="sec-head" data-reveal>
+      <h2>Seis noites,<br>uma cena</h2>
+    </div>
+    <div class="ep-grid">
+      <div class="ep-card" data-reveal>
+        <div class="ep-photo grade-atual"><img src="assets/photos/ep01-base.jpg" alt="Episódio 01 — A Base"><div class="ep-tag">// EP. 01 //</div></div>
+        <div class="ep-body">
+          <div class="ep-title">A Base</div>
+          <p>O cenário que antecede o rock do milênio, conectando as influências musicais dos anos 80 e 90 às vivências de quem começava a se aproximar da música — e o comportamento de uma geração millennial que via uma nova cena surgir na cidade.</p>
+        </div>
+      </div>
+      <div class="ep-card" data-reveal>
+        <div class="ep-photo grade-atual"><img src="assets/photos/ep02-chalaca.jpg" alt="Episódio 02 — Chalaça Total"><div class="ep-tag">// EP. 02 //</div></div>
+        <div class="ep-body">
+          <div class="ep-title">Chalaça Total</div>
+          <p>Consolidação da cena: Comunidade, Acústicos, Tequila, Ultramen e Bidê ou Balde. Os arquivos pessoais de Lelê guiam a trajetória das bandas dentro e fora dos palcos.</p>
+          <div class="kq">Qual a história dessas bandas? Como influenciaram a cena? Qual a relação delas com Lelê?</div>
+        </div>
+      </div>
+      <div class="ep-card" data-reveal>
+        <div class="ep-photo grade-atual"><img src="assets/photos/ep03-bug.jpg" alt="Episódio 03 — Bug do Milênio"><div class="ep-tag">// EP. 03 //</div></div>
+        <div class="ep-body">
+          <div class="ep-title">Bug do Milênio</div>
+          <p>O choque geracional dentro da cena: mudanças tecnológicas, a chegada da internet, novos estilos e os desafios de se manter relevante — colocando em diálogo as bandas dos episódios anteriores.</p>
+        </div>
+      </div>
+      <div class="ep-card" data-reveal>
+        <div class="ep-photo grade-atual"><img src="assets/photos/ep04-fazendo.jpg" alt="Episódio 04 — Fazendo a Cabeça"><div class="ep-tag">// EP. 04 //</div></div>
+        <div class="ep-body">
+          <div class="ep-title">Fazendo a Cabeça</div>
+          <p>Vera Loca, Cachorro Grande, Reação em Cadeia e Fresno. Em paralelo, um mundo cada vez mais globalizado começa a influenciar comportamentos e referências, apontando para uma mudança iminente.</p>
+        </div>
+      </div>
+      <div class="ep-card" data-reveal>
+        <div class="ep-photo grade-atual"><img src="assets/photos/ep05-pico.jpg" alt="Episódio 05 — O Pico"><div class="ep-tag">// EP. 05 //</div></div>
+        <div class="ep-body">
+          <div class="ep-title">O Pico</div>
+          <p>A cena local de Porto Alegre: bares, estúdios e points da cidade. Depoimentos de donos de estabelecimentos marcantes — Garagem Hermética, Bafo de Bira, Ocidente, Bar do João.</p>
+        </div>
+      </div>
+      <div class="ep-card" data-reveal>
+        <div class="ep-photo grade-atual"><img src="assets/photos/ep06-perdeu.jpg" alt="Episódio 06 — Você Não Sabe O Que Perdeu"><div class="ep-tag">// EP. 06 //</div></div>
+        <div class="ep-body">
+          <div class="ep-title">Você Não Sabe O Que Perdeu</div>
+          <p>O legado do rock do milênio e os novos nomes que ele revelou. Bandas e personagens revisitam os "picos" que marcaram a cena — e Lelê reflete sobre o que fica, o que muda, e o que continua vivo.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="archive-strip" data-reveal>
+  <img src="assets/photos/archive-collage.jpg" alt="Arquivo de época — Porto Alegre, cena do rock">
+  <div class="cap"><span>Registros de uma época que definiu uma geração</span></div>
+</div>
+
+<section class="estetico" id="estetico">
+  <div class="wrap">
+    <div class="eyebrow" data-reveal>// 03 — CONCEITO ESTÉTICO //</div>
+    <div class="sec-head" data-reveal><h2>Alta definição<br>encontra arquivo</h2></div>
+    <p class="intro" data-reveal>O movimento estará presente ao longo de todo o documentário — seja por meio das câmeras ou dos personagens. Os depoimentos acontecem em diferentes lugares da cidade: casas de show, rádios, estúdios, ruas, lojas de discos. Cada personagem ocupa um espaço com significado na história, como se a cidade fosse extensão de sua memória. A estética mescla captação em alta definição, efeitos analógicos e arquivos de época — a ideia é transportar o olhar através do tempo.</p>
+
+    <div class="tex-grid">
+      <div class="tex-item" data-reveal>
+        <div class="frame grade-atual"><img src="assets/photos/textura-atual.jpg" alt="Captação atual, grade quente"></div>
+        <div class="tex-label">Captação atual <span class="sub">Grade quente — luz de palco</span></div>
+      </div>
+      <div class="tex-item" data-reveal>
+        <div class="frame grade-archive">
+          <img src="assets/photos/textura-arquivo.jpg" alt="Arquivo de época tratado">
+          <div class="scanlines"></div>
+          <div class="vignette-in"></div>
+        </div>
+        <div class="tex-label">Arquivo tratado <span class="sub">Scanlines + vinheta</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cta-final concrete grain">
+  <div class="teaser-box" data-reveal>
+    <div class="teaser-tag">// EM BREVE //</div>
+    <h2>ROCK DO<br>MILÊNIO</h2>
+    <div class="sub2">Um documentário original</div>
+    <p style="color:var(--rm-text-2);font-size:14px;line-height:1.7;margin:0">Seis episódios sobre a cena que definiu o som de uma geração em Porto Alegre — em breve na ATL TV.</p>
+    <a class="btn-pill outline" href="#top">Voltar ao topo</a>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <a class="btn-pill back-btn" href="../index.html">← Voltar para ATL TV</a>
+    <p>Rock do Milênio é um documentário original produzido para a <strong>ATL TV</strong> (Rede Atlântida).</p>
+    <div class="fine">Imagens de arquivo cedidas pela produção. Conteúdo sujeito a ajustes editoriais.</div>
+  </div>
+</footer>
+
+<script>
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => { nav.classList.toggle('solid', window.scrollY > 40); }, { passive: true });
+
+  const revealEls = document.querySelectorAll('[data-reveal]');
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in-view'); revealObserver.unobserve(e.target); } });
+  }, { threshold: 0.12 });
+  revealEls.forEach(el => revealObserver.observe(el));
+</script>
+
+</body>
+</html>
