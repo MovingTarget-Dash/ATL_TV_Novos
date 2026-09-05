@@ -7,7 +7,7 @@
 <meta name="description" content="PB Procura: o reality de talentos do Pretinho Básico e da ATL TV em busca do novo nome do humor gaúcho.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Nunito+Sans:ital,wght@0,400;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&family=Nunito+Sans:ital,wght@0,400;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
 <style>
   :root {
     --pb-charcoal: #232323;
@@ -19,7 +19,7 @@
     --pb-ink: #1A1A1A;
     --pb-gray-60: #9A9A9A;
 
-    --font-display: 'Baloo 2', sans-serif;
+    --font-display: 'Luckiest Guy', 'Baloo 2', cursive, sans-serif;
     --font-body: 'Nunito Sans', sans-serif;
   }
 
@@ -27,8 +27,15 @@
   html { scroll-behavior: smooth; }
   body {
     margin: 0;
-    background: var(--pb-charcoal)
-      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='16'%3E%3Cpath d='M0 16 L8 8 L16 16 L24 8 L32 16' fill='none' stroke='rgba(255,255,255,0.045)' stroke-width='2'/%3E%3C/svg%3E");
+    background-color: var(--pb-charcoal);
+    background-image:
+      linear-gradient(135deg, rgba(255,255,255,.05) 25%, transparent 25%),
+      linear-gradient(225deg, rgba(255,255,255,.05) 25%, transparent 25%),
+      linear-gradient(45deg, rgba(255,255,255,.05) 25%, transparent 25%),
+      linear-gradient(315deg, rgba(255,255,255,.05) 25%, transparent 25%);
+    background-position: 26px 0, 26px 0, 0 0, 0 0;
+    background-size: 52px 52px;
+    background-repeat: repeat;
     color: var(--pb-white);
     font-family: var(--font-body);
     -webkit-font-smoothing: antialiased;
@@ -70,11 +77,16 @@
     width: 34px; height: 8px; transform-origin: center;
   }
 
-  /* ---------- hachure display text ---------- */
-  .hachure { position: relative; display: inline-block; color: var(--pb-white); }
-  .hachure::after {
-    content: attr(data-text); position: absolute; inset: 0;
-    background-image: repeating-linear-gradient(128deg, rgba(0,0,0,.6) 0 2px, transparent 2px 8px);
+  /* ---------- display lettering (solid, matches PDF hero) ---------- */
+  .display-solid { display: inline-block; color: var(--pb-white); font-family: var(--font-display); }
+
+  /* numerals: thin hand-sketched shadow sliver behind the solid glyph, like the deck's "Estrutura" numbers */
+  .numeral-sketch {
+    position: relative; display: inline-block; color: var(--pb-white); font-family: var(--font-display);
+  }
+  .numeral-sketch::before {
+    content: attr(data-text); position: absolute; left: -0.05em; top: 0.06em; z-index: -1;
+    background-image: repeating-linear-gradient(128deg, var(--pb-ink) 0 3px, var(--pb-charcoal) 3px 9px);
     -webkit-background-clip: text; background-clip: text; color: transparent;
   }
 
@@ -109,13 +121,13 @@
   .hero-mark { display: flex; align-items: center; justify-content: center; gap: clamp(8px, 2vw, 20px); }
   .hero-mark svg { width: clamp(64px, 9vw, 120px); height: clamp(64px, 9vw, 120px); flex: none; }
   .hero-title { display: flex; flex-direction: column; align-items: flex-start; line-height: 0.92; }
-  .hero-title .hachure { font-size: clamp(64px, 13vw, 168px); }
-  .hachure[data-text="PROCURA"] { font-size: clamp(34px, 6.6vw, 84px) !important; align-self: flex-end; margin-top: -0.08em; }
+  .hero-title .display-solid { font-size: clamp(64px, 13vw, 168px); }
+  .display-solid[data-text="PROCURA"] { font-size: clamp(34px, 6.6vw, 84px) !important; align-self: flex-end; margin-top: -0.08em; letter-spacing: 0.01em; }
   .hero-sub {
-    font-family: var(--font-display); font-weight: 700; color: var(--pb-white);
-    font-size: clamp(16px, 2.2vw, 24px); line-height: 1.35; margin: clamp(20px,3vw,36px) 0 0;
+    font-family: var(--font-body); font-weight: 800; color: var(--pb-white);
+    font-size: clamp(15px, 2vw, 21px); line-height: 1.35; margin: clamp(20px,3vw,36px) 0 0; letter-spacing: 0.01em;
   }
-  .hero-atl { margin-top: clamp(28px, 4vw, 48px); display: flex; align-items: baseline; gap: 3px; font-family: var(--font-display); font-weight: 800; color: var(--pb-white); font-size: 22px; opacity: .9; }
+  .hero-atl { margin-top: clamp(28px, 4vw, 48px); display: flex; align-items: baseline; gap: 3px; font-family: var(--font-body); font-weight: 800; color: var(--pb-white); font-size: 22px; opacity: .9; }
   .hero-atl .tv { font-size: 10px; background: var(--pb-white); color: var(--pb-charcoal); padding: 2px 5px; border-radius: 4px; margin-left: 2px; }
 
   .scroll-cue {
@@ -146,7 +158,7 @@
   .estrutura .section-title { text-align: center; }
   .steps-row { display: flex; justify-content: center; gap: clamp(24px, 6vw, 72px); margin: 56px 0 70px; flex-wrap: wrap; }
   .step-num { display: flex; flex-direction: column; align-items: center; gap: 16px; }
-  .step-num .hachure { font-size: clamp(56px, 9vw, 96px); }
+  .step-num .numeral-sketch { font-size: clamp(56px, 9vw, 96px); }
   .pill-label { background: var(--pb-teal); color: var(--pb-ink); font-family: var(--font-display); font-weight: 700; font-size: 14px; padding: 9px 22px; border-radius: 999px; letter-spacing: 0.02em; }
   .pill-label.outline { background: transparent; border: 2px solid var(--pb-teal); color: var(--pb-teal); }
 
@@ -242,8 +254,8 @@
         <line x1="14" y1="42" x2="6" y2="55" stroke="var(--pb-teal)" stroke-width="10" stroke-linecap="round"/>
       </svg>
       <h1 class="hero-title">
-        <span class="hachure" data-text="PB">PB</span>
-        <span class="hachure" data-text="PROCURA">PROCURA</span>
+        <span class="display-solid" data-text="PB">PB</span>
+        <span class="display-solid" data-text="PROCURA">PROCURA</span>
       </h1>
     </div>
     <p class="hero-sub">UM NOVO TALENTO DO<br>HUMOR GAÚCHO</p>
@@ -281,15 +293,15 @@
 
     <div class="steps-row" data-reveal>
       <div class="step-num">
-        <span class="hachure" data-text="1">1</span>
+        <span class="numeral-sketch" data-text="1">1</span>
         <span class="pill-label">SELETIVA</span>
       </div>
       <div class="step-num">
-        <span class="hachure" data-text="2">2</span>
+        <span class="numeral-sketch" data-text="2">2</span>
         <span class="pill-label">DINÂMICAS</span>
       </div>
       <div class="step-num">
-        <span class="hachure" data-text="3">3</span>
+        <span class="numeral-sketch" data-text="3">3</span>
         <span class="pill-label outline">FINAL</span>
       </div>
     </div>
