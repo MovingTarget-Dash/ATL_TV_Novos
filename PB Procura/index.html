@@ -7,33 +7,29 @@
 <meta name="description" content="PB Procura: o reality de talentos do Pretinho Básico e da ATL TV em busca do novo nome do humor gaúcho.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Anton&family=Work+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Nunito+Sans:ital,wght@0,400;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
 <style>
   :root {
-    --pb-ink: #17140F;
-    --pb-ink-soft: #2B2620;
-    --pb-teal: #4F8F7F;
-    --pb-teal-deep: #35695C;
-    --pb-teal-pale: #C7DDD3;
-    --pb-blue: #1E3AF2;
-    --pb-blue-deep: #12237A;
-    --pb-red: #6B1420;
-    --pb-cream: #F4EFE4;
+    --pb-charcoal: #232323;
+    --pb-charcoal-raise: #2E2E2E;
+    --pb-teal: #17F9D6;
+    --pb-teal-deep: #1E8575;
+    --pb-teal-dim: #236157;
     --pb-white: #FFFFFF;
-    --pb-wood: #C89B4C;
-    --pb-gray-40: #8A8478;
-    --pb-gray-20: #D9D4C8;
+    --pb-ink: #1A1A1A;
+    --pb-gray-60: #9A9A9A;
 
-    --font-display: 'Anton', sans-serif;
-    --font-body: 'Work Sans', sans-serif;
+    --font-display: 'Baloo 2', sans-serif;
+    --font-body: 'Nunito Sans', sans-serif;
   }
 
   * { box-sizing: border-box; }
   html { scroll-behavior: smooth; }
   body {
     margin: 0;
-    background: var(--pb-cream);
-    color: var(--pb-ink);
+    background: var(--pb-charcoal)
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='16'%3E%3Cpath d='M0 16 L8 8 L16 16 L24 8 L32 16' fill='none' stroke='rgba(255,255,255,0.045)' stroke-width='2'/%3E%3C/svg%3E");
+    color: var(--pb-white);
     font-family: var(--font-body);
     -webkit-font-smoothing: antialiased;
     overflow-x: hidden;
@@ -42,32 +38,45 @@
   .wrap { max-width: 1120px; margin: 0 auto; padding: 0 28px; }
   section { position: relative; }
 
-  h1, h2, h3 {
-    font-family: var(--font-display);
-    font-weight: 400;
-    letter-spacing: 0.01em;
-    line-height: 0.98;
-    margin: 0;
-  }
-  .eyebrow {
-    font-family: var(--font-body); font-weight: 700; font-size: 12.5px;
-    letter-spacing: 0.16em; text-transform: uppercase; color: var(--pb-teal-deep);
-    display: flex; align-items: center; gap: 10px; margin-bottom: 16px;
-  }
-  .eyebrow::before { content: ''; width: 22px; height: 2px; background: var(--pb-teal-deep); }
-  section.on-dark .eyebrow, section.on-dark .eyebrow::before { color: var(--pb-teal-pale); background: var(--pb-teal-pale); }
-  section.on-teal .eyebrow, section.on-teal .eyebrow::before { color: var(--pb-ink); background: var(--pb-ink); }
+  h1, h2, h3 { font-family: var(--font-display); font-weight: 800; line-height: 1; margin: 0; }
 
-  .btn {
+  .eyebrow-icon {
+    width: 52px; height: 52px; border-radius: var(--radius-md, 16px);
+    background: var(--pb-charcoal-raise); display: flex; align-items: center; justify-content: center;
+    flex: none; margin-bottom: 18px;
+  }
+  .eyebrow-icon svg { width: 28px; height: 28px; }
+
+  .section-title { font-size: clamp(30px, 4.2vw, 46px); color: var(--pb-teal); margin-bottom: 20px; }
+  .section-title .w { color: var(--pb-white); }
+
+  .btn-pill {
     display: inline-flex; align-items: center; gap: 10px;
-    font-family: var(--font-body); font-weight: 700; font-size: 15px;
-    padding: 15px 28px; border-radius: 999px; text-decoration: none;
-    background: var(--pb-teal); color: var(--pb-cream);
+    font-family: var(--font-display); font-weight: 700; font-size: 15px;
+    padding: 15px 30px; border-radius: 999px; text-decoration: none;
+    background: var(--pb-teal); color: var(--pb-ink);
     transition: transform .25s ease, background .25s ease;
     border: none; cursor: pointer;
   }
-  .btn:hover { transform: translateY(-2px); background: var(--pb-teal-deep); }
-  .btn.ghost { background: transparent; border: 1.5px solid currentColor; color: inherit; }
+  .btn-pill:hover { transform: translateY(-2px); background: #4dffe4; }
+  .btn-pill.ghost { background: transparent; border: 2.5px solid var(--pb-teal); color: var(--pb-teal); }
+
+  /* ---------- decorative shapes ---------- */
+  .star { position: absolute; fill: var(--pb-teal); pointer-events: none; }
+  .doodle { position: absolute; pointer-events: none; }
+  .sparkles { position: absolute; pointer-events: none; }
+  .sparkles span {
+    position: absolute; background: var(--pb-teal); border-radius: 999px;
+    width: 34px; height: 8px; transform-origin: center;
+  }
+
+  /* ---------- hachure display text ---------- */
+  .hachure { position: relative; display: inline-block; color: var(--pb-white); }
+  .hachure::after {
+    content: attr(data-text); position: absolute; inset: 0;
+    background-image: repeating-linear-gradient(128deg, rgba(0,0,0,.6) 0 2px, transparent 2px 8px);
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
 
   /* ---------- scroll reveal ---------- */
   [data-reveal] { opacity: 0; transform: translateY(28px); transition: opacity .8s cubic-bezier(.2,.7,.3,1), transform .8s cubic-bezier(.2,.7,.3,1); }
@@ -81,208 +90,115 @@
   .nav {
     position: fixed; top: 0; left: 0; right: 0; z-index: 100;
     display: flex; align-items: center; justify-content: space-between;
-    padding: 20px 28px; transition: background .35s ease, padding .35s ease, box-shadow .35s ease;
+    padding: 22px 28px; transition: background .35s ease, padding .35s ease, box-shadow .35s ease;
   }
-  .nav.solid { background: rgba(23,20,15,0.92); backdrop-filter: blur(6px); padding: 13px 28px; box-shadow: 0 2px 24px rgba(0,0,0,.25); }
-  .nav-mark { font-family: var(--font-display); color: var(--pb-cream); font-size: 20px; letter-spacing: 0.02em; text-decoration: none; display: flex; align-items: baseline; gap: 8px; }
-  .nav-mark small { font-family: var(--font-body); font-weight: 600; font-size: 10px; letter-spacing: 0.14em; color: var(--pb-teal-pale); text-transform: uppercase; }
+  .nav.solid { background: rgba(35,35,35,0.92); backdrop-filter: blur(6px); padding: 14px 28px; box-shadow: 0 2px 24px rgba(0,0,0,.3); }
+  .nav-mark { font-family: var(--font-display); font-weight: 800; color: var(--pb-white); font-size: 18px; text-decoration: none; }
+  .nav-mark span { color: var(--pb-teal); }
   .nav-links { display: flex; gap: 28px; }
-  .nav-links a { color: var(--pb-cream); opacity: .8; text-decoration: none; font-size: 13.5px; font-weight: 600; letter-spacing: 0.02em; transition: opacity .2s; }
-  .nav-links a:hover { opacity: 1; }
+  .nav-links a { color: var(--pb-white); opacity: .75; text-decoration: none; font-size: 13.5px; font-weight: 700; letter-spacing: 0.02em; transition: opacity .2s, color .2s; font-family: var(--font-body); }
+  .nav-links a:hover { opacity: 1; color: var(--pb-teal); }
   @media (max-width: 720px) { .nav-links { display: none; } }
 
-  /* ---------- hero ---------- */
+  /* ---------- hero (matches deck page 1) ---------- */
   .hero {
-    min-height: 100svh; display: flex; align-items: flex-end;
-    background: var(--pb-ink); color: var(--pb-cream);
-    position: relative; overflow: hidden; padding-bottom: 80px;
+    min-height: 100svh; display: flex; align-items: center; justify-content: center;
+    position: relative; overflow: hidden; padding: 120px 24px 60px; text-align: center;
   }
-  .hero-bg {
-    position: absolute; inset: 0; background-size: cover; background-position: 50% 30%;
-    animation: heroZoom 18s ease-in-out infinite alternate;
+  .hero-content { position: relative; z-index: 2; display: flex; flex-direction: column; align-items: center; }
+  .hero-mark { display: flex; align-items: center; justify-content: center; gap: clamp(8px, 2vw, 20px); }
+  .hero-mark svg { width: clamp(64px, 9vw, 120px); height: clamp(64px, 9vw, 120px); flex: none; }
+  .hero-title { display: flex; flex-direction: column; align-items: flex-start; line-height: 0.92; }
+  .hero-title .hachure { font-size: clamp(64px, 13vw, 168px); }
+  .hachure[data-text="PROCURA"] { font-size: clamp(34px, 6.6vw, 84px) !important; align-self: flex-end; margin-top: -0.08em; }
+  .hero-sub {
+    font-family: var(--font-display); font-weight: 700; color: var(--pb-white);
+    font-size: clamp(16px, 2.2vw, 24px); line-height: 1.35; margin: clamp(20px,3vw,36px) 0 0;
   }
-  .hero-scrim {
-    position: absolute; inset: 0;
-    background: linear-gradient(180deg, rgba(23,20,15,.55) 0%, rgba(23,20,15,.55) 35%, rgba(23,20,15,.96) 100%);
-  }
-  @keyframes heroZoom { from { transform: scale(1); } to { transform: scale(1.08); } }
-
-  .hero-content { position: relative; z-index: 2; width: 100%; }
-  .hero-kicker {
-    font-weight: 700; font-size: 12.5px; letter-spacing: 0.18em; text-transform: uppercase;
-    color: var(--pb-teal-pale); margin-bottom: 22px;
-    opacity: 0; animation: fadeUp .8s ease .2s forwards;
-  }
-  .hero h1 {
-    font-size: clamp(44px, 8.5vw, 104px);
-    opacity: 0; animation: fadeUp .9s ease .4s forwards;
-  }
-  .hero h1 span { display: block; color: var(--pb-teal); }
-  .hero p {
-    max-width: 560px; font-size: 17px; line-height: 1.6; color: var(--pb-gray-20);
-    margin: 26px 0 34px;
-    opacity: 0; animation: fadeUp .9s ease .65s forwards;
-  }
-  .hero-ctas { display: flex; gap: 16px; flex-wrap: wrap; opacity: 0; animation: fadeUp .9s ease .85s forwards; }
-  @keyframes fadeUp { from { opacity: 0; transform: translateY(22px); } to { opacity: 1; transform: translateY(0); } }
+  .hero-atl { margin-top: clamp(28px, 4vw, 48px); display: flex; align-items: baseline; gap: 3px; font-family: var(--font-display); font-weight: 800; color: var(--pb-white); font-size: 22px; opacity: .9; }
+  .hero-atl .tv { font-size: 10px; background: var(--pb-white); color: var(--pb-charcoal); padding: 2px 5px; border-radius: 4px; margin-left: 2px; }
 
   .scroll-cue {
-    position: absolute; bottom: 28px; left: 28px; z-index: 2;
-    display: flex; align-items: center; gap: 10px; color: var(--pb-gray-20);
-    font-size: 11.5px; letter-spacing: 0.12em; text-transform: uppercase; font-weight: 600;
-    opacity: 0; animation: fadeUp .9s ease 1.1s forwards;
+    position: absolute; bottom: 24px; left: 50%; transform: translateX(-50%); z-index: 2;
+    color: var(--pb-gray-60); font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; font-weight: 700;
+    display: flex; flex-direction: column; align-items: center; gap: 8px;
   }
-  .scroll-cue .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--pb-teal); animation: bob 1.6s ease-in-out infinite; }
-  @keyframes bob { 0%,100% { transform: translateY(0); } 50% { transform: translateY(6px); } }
+  .scroll-cue .arrow { width: 8px; height: 8px; border-right: 2px solid var(--pb-teal); border-bottom: 2px solid var(--pb-teal); transform: rotate(45deg); animation: bob 1.6s ease-in-out infinite; }
+  @keyframes bob { 0%,100% { transform: rotate(45deg) translate(0,0); } 50% { transform: rotate(45deg) translate(4px,4px); } }
 
-  /* ---------- puzzle tile motif ---------- */
-  .puzzle { position: absolute; right: 6%; bottom: 90px; z-index: 2; display: grid; grid-template-columns: repeat(3, 34px); gap: 6px; }
-  .puzzle .tile { width: 34px; height: 34px; border-radius: 4px; animation: float 3.4s ease-in-out infinite; }
-  .puzzle .tile:nth-child(1) { background: var(--pb-blue); animation-delay: 0s; }
-  .puzzle .tile:nth-child(2) { background: var(--pb-red); animation-delay: .15s; }
-  .puzzle .tile:nth-child(3) { background: var(--pb-wood); animation-delay: .3s; }
-  .puzzle .tile:nth-child(4) { background: var(--pb-teal); animation-delay: .45s; }
-  .puzzle .tile.q {
-    background: var(--pb-teal-deep); color: var(--pb-cream); font-family: var(--font-display);
-    display: flex; align-items: center; justify-content: center; font-size: 20px;
-    animation: pulse 2.2s ease-in-out infinite;
-  }
-  .puzzle .tile:nth-child(6) { background: var(--pb-blue-deep); animation-delay: .6s; }
-  @keyframes float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
-  @keyframes pulse { 0%,100% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.12); opacity: .75; } }
-  @media (max-width: 860px) { .puzzle { display: none; } }
+  /* ---------- about / quem-faz (magnifier + organic photo) ---------- */
+  .split { padding: 96px 0; }
+  .split-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; }
+  .split-grid.reverse .split-photo { order: -1; }
+  .split h2 { font-size: clamp(28px, 3.6vw, 40px); color: var(--pb-teal); margin-bottom: 22px; line-height: 1.15; }
+  .split p { font-size: 16.5px; line-height: 1.7; color: #D8D8D8; max-width: 500px; margin: 0 0 16px; }
+  .split-photo { position: relative; aspect-ratio: 4/5; border-radius: 32px 32px 32px 8px; overflow: hidden; }
+  .split-photo img { width: 100%; height: 100%; object-fit: cover; }
 
-  /* ---------- stat row ---------- */
-  .stats { display: flex; gap: 56px; flex-wrap: wrap; margin-top: 8px; }
-  .stat-num { font-family: var(--font-display); font-size: 40px; color: var(--pb-teal); line-height: 1; }
-  .stat-label { font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--pb-gray-40); margin-top: 6px; font-weight: 600; }
-  section.on-dark .stat-label { color: var(--pb-gray-20); }
+  .stats { display: flex; gap: 16px; flex-wrap: wrap; margin-top: 28px; }
+  .stat-chip { background: var(--pb-charcoal-raise); border-radius: var(--radius-md,16px); padding: 16px 22px; }
+  .stat-num { font-family: var(--font-display); font-size: 32px; color: var(--pb-teal); line-height: 1; }
+  .stat-label { font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--pb-gray-60); margin-top: 6px; font-weight: 700; }
+  @media (max-width: 860px) { .split-grid, .split-grid.reverse { grid-template-columns: 1fr; } .split-grid.reverse .split-photo { order: 0; } .split-photo { max-width: 360px; } }
 
-  /* ---------- about ---------- */
-  .about { padding: 120px 0; background: var(--pb-cream); }
-  .about-grid { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 64px; align-items: center; }
-  .about h2 { font-size: clamp(30px, 4vw, 46px); margin-bottom: 26px; }
-  .about p { font-size: 17px; line-height: 1.7; color: var(--pb-ink-soft); max-width: 520px; }
-  .about-photo { position: relative; border-radius: 18px; overflow: hidden; aspect-ratio: 4/5; }
-  .about-photo img { width: 100%; height: 100%; object-fit: cover; }
-  .about-photo::after {
-    content: 'PB PROCURA'; position: absolute; left: 18px; bottom: 18px;
-    font-family: var(--font-display); color: var(--pb-cream); font-size: 15px; letter-spacing: 0.04em;
-    background: rgba(23,20,15,.55); padding: 6px 12px; border-radius: 6px;
-  }
-  @media (max-width: 860px) { .about-grid { grid-template-columns: 1fr; } .about-photo { max-width: 340px; } }
+  /* ---------- estrutura / steps ---------- */
+  .estrutura { padding: 130px 0 110px; text-align: center; }
+  .estrutura .section-title { text-align: center; }
+  .steps-row { display: flex; justify-content: center; gap: clamp(24px, 6vw, 72px); margin: 56px 0 70px; flex-wrap: wrap; }
+  .step-num { display: flex; flex-direction: column; align-items: center; gap: 16px; }
+  .step-num .hachure { font-size: clamp(56px, 9vw, 96px); }
+  .pill-label { background: var(--pb-teal); color: var(--pb-ink); font-family: var(--font-display); font-weight: 700; font-size: 14px; padding: 9px 22px; border-radius: 999px; letter-spacing: 0.02em; }
+  .pill-label.outline { background: transparent; border: 2px solid var(--pb-teal); color: var(--pb-teal); }
 
-  /* ---------- format / timeline ---------- */
-  .format { padding: 130px 0 110px; background: var(--pb-ink); color: var(--pb-cream); }
-  .format h2 { font-size: clamp(30px, 4vw, 46px); max-width: 640px; margin-bottom: 70px; }
-  .format h2 em { font-style: normal; color: var(--pb-teal); }
-
-  .steps { position: relative; }
-  .steps::before {
-    content: ''; position: absolute; left: 27px; top: 8px; bottom: 8px; width: 2px;
-    background: rgba(244,239,228,.14);
-  }
-  .steps::after {
-    content: ''; position: absolute; left: 27px; top: 8px; width: 2px; height: 0%;
-    background: var(--pb-teal); transition: height 1.2s cubic-bezier(.2,.7,.3,1);
-  }
-  .steps.line-fill::after { height: 96%; }
-
-  .step { position: relative; padding: 0 0 64px 76px; }
-  .step:last-child { padding-bottom: 0; }
-  .step-num {
-    position: absolute; left: 0; top: 0; width: 56px; height: 56px; border-radius: 50%;
-    background: var(--pb-ink-soft); border: 2px solid rgba(244,239,228,.18);
-    display: flex; align-items: center; justify-content: center;
-    font-family: var(--font-display); font-size: 22px; color: var(--pb-teal-pale);
-    transition: border-color .4s ease, background .4s ease;
-  }
-  .step.in-view .step-num { border-color: var(--pb-teal); background: var(--pb-teal-deep); color: var(--pb-cream); }
-  .step-tag { font-size: 12px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--pb-teal-pale); margin-bottom: 8px; }
-  .step h3 { font-family: var(--font-body); font-weight: 700; font-size: 22px; margin-bottom: 12px; }
-  .step p { font-size: 15.5px; line-height: 1.7; color: var(--pb-gray-20); max-width: 640px; margin: 0 0 18px; }
+  .step-detail { text-align: left; background: var(--pb-charcoal-raise); border-radius: var(--radius-lg,24px); padding: 30px 34px; margin-bottom: 20px; }
+  .step-detail:last-child { margin-bottom: 0; }
+  .step-detail h3 { font-family: var(--font-body); font-weight: 800; font-size: 19px; color: var(--pb-white); margin-bottom: 10px; }
+  .step-detail p { font-size: 15px; line-height: 1.7; color: #D8D8D8; margin: 0 0 14px; max-width: 680px; }
   .chip-row { display: flex; flex-wrap: wrap; gap: 8px; }
-  .chip {
-    font-size: 12.5px; font-weight: 600; padding: 7px 13px; border-radius: 999px;
-    background: rgba(244,239,228,.08); border: 1px solid rgba(244,239,228,.16); color: var(--pb-gray-20);
-  }
-  .chip-note { font-size: 12.5px; color: var(--pb-gray-40); margin-top: 10px; font-style: italic; }
+  .chip { font-size: 12.5px; font-weight: 700; padding: 7px 14px; border-radius: 999px; background: rgba(23,249,214,.1); border: 1px solid rgba(23,249,214,.3); color: var(--pb-teal); }
+  .chip-note { font-size: 12.5px; color: var(--pb-gray-60); margin-top: 10px; font-style: italic; }
 
   /* ---------- guests marquee ---------- */
-  .guests { background: var(--pb-teal); padding: 64px 0; overflow: hidden; }
-  .guests-head { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 20px; margin-bottom: 34px; }
-  .guests-head .wrap { width: 100%; }
-  .guests h3 { font-family: var(--font-body); font-weight: 700; font-size: 16px; color: var(--pb-ink); }
+  .guests { background: var(--pb-charcoal-raise); padding: 56px 0; overflow: hidden; }
+  .guests h3 { font-family: var(--font-body); font-weight: 800; font-size: 15px; color: var(--pb-white); text-align: center; margin-bottom: 28px; text-transform: uppercase; letter-spacing: 0.06em; }
   .marquee { display: flex; width: max-content; animation: scroll 26s linear infinite; }
-  .marquee-track { display: flex; gap: 14px; padding-right: 14px; }
   .marquee:hover { animation-play-state: paused; }
-  .guest-chip {
-    white-space: nowrap; font-family: var(--font-display); font-size: 20px; letter-spacing: 0.01em;
-    color: var(--pb-ink); background: rgba(23,20,15,.08); border: 1.5px solid rgba(23,20,15,.18);
-    padding: 12px 22px; border-radius: 999px;
-  }
+  .marquee-track { display: flex; gap: 12px; padding-right: 12px; }
+  .guest-chip { white-space: nowrap; font-family: var(--font-display); font-weight: 700; font-size: 15px; color: var(--pb-ink); background: var(--pb-teal); padding: 12px 22px; border-radius: 999px; }
   @keyframes scroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
 
-  /* ---------- prizes ---------- */
-  .prizes { padding: 130px 0; background: var(--pb-cream); }
-  .prizes h2 { font-size: clamp(30px, 4vw, 46px); max-width: 640px; margin-bottom: 60px; }
-  .prize-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
-  .prize-card {
-    background: var(--pb-white); border: 1px solid var(--pb-gray-20); border-radius: 16px;
-    padding: 28px 26px; transition: transform .3s ease, box-shadow .3s ease, border-color .3s ease;
-  }
-  .prize-card:hover { transform: translateY(-4px); box-shadow: 0 16px 40px rgba(23,20,15,.08); border-color: var(--pb-teal); }
-  .prize-num { font-family: var(--font-display); font-size: 26px; color: var(--pb-teal); margin-bottom: 14px; display: block; }
-  .prize-card p { font-size: 14.5px; line-height: 1.55; color: var(--pb-ink-soft); margin: 0; font-weight: 500; }
-  @media (max-width: 860px) { .prize-grid { grid-template-columns: 1fr 1fr; } }
-  @media (max-width: 560px) { .prize-grid { grid-template-columns: 1fr; } }
+  /* ---------- premiacao (exact teal card grid from deck) ---------- */
+  .premiacao { padding: 130px 0; text-align: center; }
+  .premiacao .section-title { text-align: center; }
+  .prize-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-top: 56px; text-align: left; }
+  .prize-card { background: var(--pb-teal); color: var(--pb-ink); border-radius: var(--radius-md,16px); padding: 22px 20px; min-height: 118px; display: flex; align-items: center; font-weight: 800; font-size: 14.5px; line-height: 1.35; transition: transform .25s ease; }
+  .prize-card:hover { transform: translateY(-4px); }
+  @media (max-width: 860px) { .prize-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 520px) { .prize-grid { grid-template-columns: 1fr; } }
 
-  /* ---------- grade / airing schedule ---------- */
-  .grade { padding: 130px 0; background: var(--pb-ink); color: var(--pb-cream); }
-  .grade h2 { font-size: clamp(30px, 4vw, 46px); max-width: 620px; }
-  .grade-slot { font-size: 16px; color: var(--pb-teal-pale); margin: 22px 0 60px; font-weight: 600; }
-  .sched { display: flex; flex-direction: column; }
+  /* ---------- grade ---------- */
+  .grade { padding: 110px 0; }
+  .grade-slot { font-size: 16px; color: var(--pb-teal); margin: 18px 0 50px; font-weight: 700; font-family: var(--font-display); }
   .sched-row {
     display: grid; grid-template-columns: 90px 170px 1fr; gap: 20px; align-items: center;
-    padding: 18px 0; border-top: 1px solid rgba(244,239,228,.12);
+    padding: 18px 22px; background: var(--pb-charcoal-raise); border-radius: var(--radius-md,16px); margin-bottom: 10px;
   }
-  .sched-row:last-child { border-bottom: 1px solid rgba(244,239,228,.12); }
   .sched-date { font-family: var(--font-display); font-size: 19px; color: var(--pb-teal); }
-  .sched-ep { font-size: 13px; font-weight: 700; letter-spacing: 0.04em; color: var(--pb-gray-20); }
-  .sched-stage { display: flex; align-items: center; gap: 10px; }
-  .stage-dot { width: 8px; height: 8px; border-radius: 50%; flex: none; }
-  .stage-dot.seletiva { background: var(--pb-blue); }
-  .stage-dot.dinamicas { background: var(--pb-wood); }
-  .stage-dot.final { background: var(--pb-red); }
-  .sched-stage span { font-size: 14.5px; color: var(--pb-gray-20); font-weight: 600; }
+  .sched-ep { font-size: 12.5px; font-weight: 800; letter-spacing: 0.04em; color: var(--pb-gray-60); }
+  .sched-stage .pill-label, .sched-stage .pill-label.outline { font-size: 12px; padding: 6px 16px; }
   @media (max-width: 560px) {
-    .sched-row { grid-template-columns: 70px 1fr; row-gap: 4px; }
+    .sched-row { grid-template-columns: 60px 1fr; row-gap: 8px; padding: 16px; }
     .sched-stage { grid-column: 1 / -1; }
   }
 
-  /* ---------- quem faz ---------- */
-  .quem { padding: 130px 0; background: var(--pb-cream); }
-  .quem-grid { display: grid; grid-template-columns: 0.9fr 1.1fr; gap: 64px; align-items: center; }
-  .quem-photo { border-radius: 18px; overflow: hidden; aspect-ratio: 4/5; }
-  .quem-photo img { width: 100%; height: 100%; object-fit: cover; }
-  .quem h2 { font-size: clamp(30px, 4vw, 46px); margin-bottom: 26px; }
-  .quem p { font-size: 17px; line-height: 1.7; color: var(--pb-ink-soft); max-width: 540px; }
-  .quem-logos { display: flex; gap: 14px; margin-top: 32px; flex-wrap: wrap; }
-  .quem-logos span {
-    font-family: var(--font-display); font-size: 15px; padding: 10px 18px; border-radius: 999px;
-    background: var(--pb-ink); color: var(--pb-cream);
-  }
-  @media (max-width: 860px) { .quem-grid { grid-template-columns: 1fr; direction: rtl; } .quem-grid > * { direction: ltr; } .quem-photo { max-width: 340px; } }
-
   /* ---------- final cta ---------- */
-  .cta-final { padding: 140px 0; background: var(--pb-teal-deep); color: var(--pb-cream); text-align: center; }
-  .cta-final h2 { font-size: clamp(32px, 6vw, 60px); max-width: 760px; margin: 0 auto 20px; }
-  .cta-final p { font-size: 17px; color: var(--pb-teal-pale); margin-bottom: 38px; }
-  .cta-final .btn { background: var(--pb-cream); color: var(--pb-ink); }
-  .cta-final .btn:hover { background: var(--pb-white); }
+  .cta-final { padding: 140px 0 110px; text-align: center; }
+  .cta-final h2 { font-size: clamp(30px, 5.5vw, 54px); color: var(--pb-white); max-width: 760px; margin: 0 auto 18px; line-height: 1.1; }
+  .cta-final h2 .accent { color: var(--pb-teal); }
+  .cta-final p { font-size: 16.5px; color: var(--pb-gray-60); margin-bottom: 34px; }
 
-  footer { background: var(--pb-ink); color: var(--pb-gray-40); padding: 56px 0 50px; text-align: center; font-size: 13px; }
-  footer .back-btn { margin-bottom: 30px; }
+  footer { padding: 56px 0 50px; text-align: center; font-size: 13px; color: var(--pb-gray-60); }
+  footer .back-btn { margin-bottom: 26px; }
   footer p { margin: 0; }
   footer .fine { margin-top: 10px; opacity: .7; font-size: 12px; }
 </style>
@@ -290,113 +206,127 @@
 <body>
 
 <nav class="nav" id="nav">
-  <a href="#top" class="nav-mark">PB PROCURA <small>ATL TV</small></a>
+  <a href="#top" class="nav-mark">PB <span>PROCURA</span></a>
   <div class="nav-links">
     <a href="#sobre">O que é</a>
-    <a href="#formato">Formato</a>
-    <a href="#premios">Prêmios</a>
+    <a href="#estrutura">Formato</a>
+    <a href="#premiacao">Prêmios</a>
     <a href="#grade">Grade</a>
   </div>
 </nav>
 
 <header class="hero" id="top">
-  <div class="hero-bg" style="background-image:url('assets/photos/stage-banner.jpg');"></div>
-  <div class="hero-scrim"></div>
-  <div class="puzzle">
-    <div class="tile"></div><div class="tile"></div><div class="tile q">?</div>
-    <div class="tile"></div><div class="tile"></div><div class="tile"></div>
+  <svg class="doodle" viewBox="0 0 200 160" style="top:90px; left:-20px; width:clamp(110px,16vw,200px); height:auto; opacity:.85;">
+    <path d="M20 90 C30 40, 90 30, 95 70 C98 95, 60 100, 55 75 C52 58, 75 50, 80 65" fill="none" stroke="var(--pb-teal)" stroke-width="7" stroke-linecap="round"/>
+    <circle cx="18" cy="120" r="4" fill="var(--pb-teal)"/>
+    <circle cx="35" cy="140" r="3" fill="var(--pb-teal)"/>
+  </svg>
+  <svg class="star" viewBox="0 0 100 100" style="top:10%; right:-7%; width:clamp(150px,20vw,280px); height:clamp(150px,20vw,280px); opacity:.9;">
+    <path d="M50 2 L58 38 L92 30 L64 54 L84 84 L50 66 L16 84 L36 54 L8 30 L42 38 Z"/>
+  </svg>
+  <svg class="star" viewBox="0 0 100 100" style="bottom:-8%; left:-8%; width:clamp(140px,18vw,240px); height:clamp(140px,18vw,240px); opacity:.95;">
+    <path d="M50 2 L58 38 L92 30 L64 54 L84 84 L50 66 L16 84 L36 54 L8 30 L42 38 Z"/>
+  </svg>
+  <div class="sparkles" style="bottom:14%; right:10%; width:140px; height:100px;">
+    <span style="top:10px; left:60px; transform:rotate(20deg);"></span>
+    <span style="top:35px; left:20px; transform:rotate(-30deg); width:22px;"></span>
+    <span style="top:55px; left:75px; transform:rotate(70deg); width:26px;"></span>
+    <span style="top:0px; left:100px; transform:rotate(-10deg); width:18px;"></span>
   </div>
-  <div class="wrap hero-content">
-    <div class="hero-kicker">Um reality de talentos · Pretinho Básico × ATL TV</div>
-    <h1>O NOVO NOME<span>DO HUMOR GAÚCHO</span></h1>
-    <p>Em 2015, o Pretinho Básico procurou um novo integrante. Em 2026, a busca é ainda maior: encontrar o próximo grande nome da comédia gaúcha — em episódios semanais na ATL TV.</p>
-    <div class="hero-ctas">
-      <a class="btn" href="#grade">Assista toda quarta, 19h</a>
-      <a class="btn ghost" href="#formato">Como funciona ↓</a>
+
+  <div class="hero-content">
+    <div class="hero-mark">
+      <svg viewBox="0 0 60 60" fill="none">
+        <circle cx="26" cy="26" r="17" stroke="var(--pb-teal)" stroke-width="8"/>
+        <path d="M18 16 C22 13, 28 14, 30 20" stroke="var(--pb-teal)" stroke-width="4" stroke-linecap="round" fill="none"/>
+        <line x1="14" y1="42" x2="6" y2="55" stroke="var(--pb-teal)" stroke-width="10" stroke-linecap="round"/>
+      </svg>
+      <h1 class="hero-title">
+        <span class="hachure" data-text="PB">PB</span>
+        <span class="hachure" data-text="PROCURA">PROCURA</span>
+      </h1>
     </div>
+    <p class="hero-sub">UM NOVO TALENTO DO<br>HUMOR GAÚCHO</p>
+    <div class="hero-atl">ATL<span class="tv">TV</span></div>
   </div>
-  <div class="scroll-cue"><span class="dot"></span> Role para descobrir</div>
+
+  <div class="scroll-cue">Role para descobrir<span class="arrow"></span></div>
 </header>
 
-<section class="about" id="sobre">
-  <div class="wrap about-grid">
+<section class="split" id="sobre">
+  <div class="wrap split-grid">
     <div data-reveal="left">
-      <div class="eyebrow">O que é o PB Procura</div>
-      <h2>Um reality de comédia com a cara do Rio Grande do Sul.</h2>
-      <p>O PB Procura é um projeto multiplataforma criado pelo Pretinho Básico — um dos grupos de humor mais queridos do Rio Grande do Sul — em parceria com a ATL TV. Ao longo da temporada, comediantes disputam a chance de se tornar o novo nome do humor gaúcho, com mídia on air, presença nas redes sociais e nas plataformas digitais da rádio, terminando em uma grande final ao vivo — com plateia, convidados e premiação, tudo registrado pela ATL TV.</p>
+      <div class="eyebrow-icon">
+        <svg viewBox="0 0 60 60" fill="none"><circle cx="26" cy="26" r="16" stroke="var(--pb-teal)" stroke-width="7"/><line x1="15" y1="40" x2="9" y2="49" stroke="var(--pb-teal)" stroke-width="9" stroke-linecap="round"/></svg>
+      </div>
+      <h2>Em 2015, o PB procurou um novo integrante. Agora, procura o novo nome do humor gaúcho!</h2>
+      <p>Após mais de 10 anos, o PB Procura está de volta, agora com um novo desafio: encontrar o novo nome do humor gaúcho.</p>
+      <p>O projeto multiplataforma conta com episódios semanais na ATL TV, mídia on air, redes sociais e plataformas digitais da rádio. E a jornada termina em uma grande final ao vivo, com premiação e plateia — tudo isso registrado na ATL TV.</p>
       <div class="stats">
-        <div>
-          <div class="stat-num" data-count-to="8">0</div>
-          <div class="stat-label">Episódios</div>
-        </div>
-        <div>
-          <div class="stat-num" data-count-to="3">0</div>
-          <div class="stat-label">Etapas</div>
-        </div>
-        <div>
-          <div class="stat-num" data-count-to="1">0</div>
-          <div class="stat-label">Final ao vivo</div>
-        </div>
+        <div class="stat-chip"><div class="stat-num">8</div><div class="stat-label">Episódios</div></div>
+        <div class="stat-chip"><div class="stat-num">3</div><div class="stat-label">Etapas</div></div>
+        <div class="stat-chip"><div class="stat-num">1</div><div class="stat-label">Final ao vivo</div></div>
       </div>
     </div>
-    <div class="about-photo" data-reveal="right">
-      <img src="assets/photos/portrait-blue.jpg" alt="Candidato do PB Procura">
+    <div class="split-photo" data-reveal="right">
+      <img src="assets/photos/stage-banner.jpg" alt="Palco do PB Procura">
     </div>
   </div>
 </section>
 
-<section class="format on-dark" id="formato">
+<section class="estrutura" id="estrutura">
+  <svg class="star" viewBox="0 0 100 100" style="top:0; right:2%; width:120px; height:120px; opacity:.9;"><path d="M50 2 L58 38 L92 30 L64 54 L84 84 L50 66 L16 84 L36 54 L8 30 L42 38 Z"/></svg>
   <div class="wrap">
-    <div data-reveal>
-      <div class="eyebrow">Como funciona</div>
-      <h2>Da inscrição em vídeo à <em>grande final ao vivo.</em></h2>
+    <h2 class="section-title" data-reveal>Estrutura</h2>
+
+    <div class="steps-row" data-reveal>
+      <div class="step-num">
+        <span class="hachure" data-text="1">1</span>
+        <span class="pill-label">SELETIVA</span>
+      </div>
+      <div class="step-num">
+        <span class="hachure" data-text="2">2</span>
+        <span class="pill-label">DINÂMICAS</span>
+      </div>
+      <div class="step-num">
+        <span class="hachure" data-text="3">3</span>
+        <span class="pill-label outline">FINAL</span>
+      </div>
     </div>
 
-    <div class="steps">
-      <div class="step" data-step data-reveal>
-        <div class="step-num">1</div>
-        <div class="step-tag">4 episódios</div>
-        <h3>Seletiva</h3>
-        <p>Os participantes enviam um vídeo de até 3 minutos: além de se apresentar, precisam fazer os jurados rirem. Integrantes do Pretinho Básico, ao lado de um convidado especial, assistem às produções pré-selecionadas e escolhem os 10 comediantes que avançam — em formato reaction, opinando sobre cada performance.</p>
-        <div class="chip-row">
-          <span class="chip">Maurício Meirelles</span>
-          <span class="chip">Victor Sarro</span>
-          <span class="chip">Estevam Nabote</span>
-          <span class="chip">Marcos Castro</span>
-        </div>
-        <div class="chip-note">Possíveis convidados especiais, conectados remotamente.</div>
+    <div class="step-detail" data-reveal>
+      <h3>4 episódios — Seletiva</h3>
+      <p>Os participantes enviam um vídeo de até 3 minutos: além de se apresentar, precisam fazer os jurados rirem. Integrantes do Pretinho Básico, ao lado de um convidado especial, assistem às produções pré-selecionadas e escolhem os 10 comediantes que avançam — em formato reaction, opinando sobre cada performance.</p>
+      <div class="chip-row">
+        <span class="chip">Maurício Meirelles</span>
+        <span class="chip">Victor Sarro</span>
+        <span class="chip">Estevam Nabote</span>
+        <span class="chip">Marcos Castro</span>
       </div>
+      <div class="chip-note">Possíveis convidados especiais, conectados remotamente.</div>
+    </div>
 
-      <div class="step" data-step data-reveal>
-        <div class="step-num">2</div>
-        <div class="step-tag">3 episódios</div>
-        <h3>Dinâmicas</h3>
-        <p>Os classificados encaram desafios inéditos, escritos sob medida para as habilidades de cada concorrente. A cada episódio, participantes são eliminados até restarem 5 finalistas.</p>
-        <div class="chip-row">
-          <span class="chip">Stand-up de 3 min</span>
-          <span class="chip">Roast</span>
-          <span class="chip">Criação de personagem</span>
-          <span class="chip">Storytelling</span>
-          <span class="chip">Humor em dupla</span>
-        </div>
+    <div class="step-detail" data-reveal>
+      <h3>3 episódios — Dinâmicas</h3>
+      <p>Os classificados encaram desafios inéditos, escritos sob medida para as habilidades de cada concorrente. A cada episódio, participantes são eliminados até restarem 5 finalistas.</p>
+      <div class="chip-row">
+        <span class="chip">Stand-up de 3 min</span>
+        <span class="chip">Roast</span>
+        <span class="chip">Criação de personagem</span>
+        <span class="chip">Storytelling</span>
+        <span class="chip">Humor em dupla</span>
       </div>
+    </div>
 
-      <div class="step" data-step data-reveal>
-        <div class="step-num">3</div>
-        <div class="step-tag">1 episódio · ao vivo</div>
-        <h3>Final</h3>
-        <p>Os 5 finalistas se apresentam ao vivo, num teatro com plateia, convidados especiais e o elenco da Atlântida. O resultado combina voto dos jurados, voto popular e voto do elenco ATL — tudo transmitido ao vivo pela ATL TV.</p>
-      </div>
+    <div class="step-detail" data-reveal>
+      <h3>1 episódio, ao vivo — Final</h3>
+      <p>Os 5 finalistas se apresentam ao vivo, num teatro com plateia, convidados especiais e o elenco da Atlântida. O resultado combina voto dos jurados, voto popular e voto do elenco ATL — tudo transmitido ao vivo pela ATL TV.</p>
     </div>
   </div>
 </section>
 
 <section class="guests">
-  <div class="guests-head">
-    <div class="wrap">
-      <h3>Convidados em pauta para as Dinâmicas</h3>
-    </div>
-  </div>
+  <h3>Convidados em pauta para as Dinâmicas</h3>
   <div class="marquee">
     <div class="marquee-track">
       <span class="guest-chip">Gio Lisboa</span>
@@ -425,126 +355,82 @@
   </div>
 </section>
 
-<section class="prizes" id="premios">
+<section class="premiacao" id="premiacao">
+  <svg class="star" viewBox="0 0 100 100" style="top:-4%; right:4%; width:150px; height:150px;"><path d="M50 2 L58 38 L92 30 L64 54 L84 84 L50 66 L16 84 L36 54 L8 30 L42 38 Z"/></svg>
+  <svg class="star" viewBox="0 0 100 100" style="bottom:-6%; left:0%; width:130px; height:130px;"><path d="M50 2 L58 38 L92 30 L64 54 L84 84 L50 66 L16 84 L36 54 L8 30 L42 38 Z"/></svg>
   <div class="wrap">
-    <div data-reveal>
-      <div class="eyebrow">O que está em jogo</div>
-      <h2>Mais do que um troféu: um empurrão de carreira.</h2>
-    </div>
+    <h2 class="section-title" data-reveal>Premiação</h2>
     <div class="prize-grid">
-      <div class="prize-card" data-reveal><span class="prize-num">01</span><p>Mentoria em gerenciamento de carreira, com a Trilha.</p></div>
-      <div class="prize-card" data-reveal><span class="prize-num">02</span><p>Aconselhamento de carreira com integrantes do Pretinho Básico.</p></div>
-      <div class="prize-card" data-reveal><span class="prize-num">03</span><p>Participação nos programas do Grupo RBS.</p></div>
-      <div class="prize-card" data-reveal><span class="prize-num">04</span><p>Abertura de shows de humor de parceiros.</p></div>
-      <div class="prize-card" data-reveal><span class="prize-num">05</span><p>Participação na transmissão do Planeta Atlântida.</p></div>
-      <div class="prize-card" data-reveal><span class="prize-num">06</span><p>Entrevista especial no podcast do Pretinho Básico.</p></div>
-      <div class="prize-card" data-reveal><span class="prize-num">07</span><p>Especial solo na ATL TV, com divulgação nas redes do Pretinho Básico.</p></div>
-      <div class="prize-card" data-reveal><span class="prize-num">+</span><p>Novidades em construção — fique de olho.</p></div>
+      <div class="prize-card" data-reveal>Mentoria em gerenciamento de carreira (Trilha)</div>
+      <div class="prize-card" data-reveal>Aconselhamento de carreira com integrantes do PB</div>
+      <div class="prize-card" data-reveal>Participação nos programas do Grupo RBS</div>
+      <div class="prize-card" data-reveal>Abertura de shows de humor parceiros</div>
+      <div class="prize-card" data-reveal>Participação na transmissão do Planeta Atlântida</div>
+      <div class="prize-card" data-reveal>Participação entrevista Pretinho Básico</div>
+      <div class="prize-card" data-reveal>Especial solo na ATL TV, com divulgação nas redes do Pretinho Básico</div>
+      <div class="prize-card" data-reveal>Em construção...</div>
     </div>
   </div>
 </section>
 
 <section class="grade" id="grade">
   <div class="wrap">
+    <h2 class="section-title" data-reveal>Quando <span class="w">assistir</span></h2>
+    <div class="grade-slot" data-reveal>Toda quarta-feira, às 19h — com a revelação do vencedor ao vivo também no Pretinho Básico.</div>
     <div data-reveal>
-      <div class="eyebrow">Quando assistir</div>
-      <h2>Uma temporada, oito episódios, direto na ATL TV.</h2>
-      <div class="grade-slot">Toda quarta-feira, às 19h — com a revelação do vencedor ao vivo também no Pretinho Básico.</div>
-    </div>
-    <div class="sched" data-reveal>
-      <div class="sched-row"><div class="sched-date">08/12</div><div class="sched-ep">EPISÓDIO 1</div><div class="sched-stage"><span class="stage-dot seletiva"></span><span>Seletiva</span></div></div>
-      <div class="sched-row"><div class="sched-date">09/12</div><div class="sched-ep">EPISÓDIO 2</div><div class="sched-stage"><span class="stage-dot seletiva"></span><span>Seletiva</span></div></div>
-      <div class="sched-row"><div class="sched-date">10/12</div><div class="sched-ep">EPISÓDIO 3</div><div class="sched-stage"><span class="stage-dot seletiva"></span><span>Seletiva</span></div></div>
-      <div class="sched-row"><div class="sched-date">11/12</div><div class="sched-ep">EPISÓDIO 4</div><div class="sched-stage"><span class="stage-dot seletiva"></span><span>Seletiva</span></div></div>
-      <div class="sched-row"><div class="sched-date">15/12</div><div class="sched-ep">EPISÓDIO 5</div><div class="sched-stage"><span class="stage-dot dinamicas"></span><span>Dinâmicas</span></div></div>
-      <div class="sched-row"><div class="sched-date">16/12</div><div class="sched-ep">EPISÓDIO 6</div><div class="sched-stage"><span class="stage-dot dinamicas"></span><span>Dinâmicas</span></div></div>
-      <div class="sched-row"><div class="sched-date">17/12</div><div class="sched-ep">EPISÓDIO 7</div><div class="sched-stage"><span class="stage-dot dinamicas"></span><span>Dinâmicas</span></div></div>
-      <div class="sched-row"><div class="sched-date">13/01</div><div class="sched-ep">EPISÓDIO 8</div><div class="sched-stage"><span class="stage-dot final"></span><span>Grande Final · ao vivo</span></div></div>
+      <div class="sched-row"><div class="sched-date">08/12</div><div class="sched-ep">EPISÓDIO 1</div><div class="sched-stage"><span class="pill-label">Seletiva</span></div></div>
+      <div class="sched-row"><div class="sched-date">09/12</div><div class="sched-ep">EPISÓDIO 2</div><div class="sched-stage"><span class="pill-label">Seletiva</span></div></div>
+      <div class="sched-row"><div class="sched-date">10/12</div><div class="sched-ep">EPISÓDIO 3</div><div class="sched-stage"><span class="pill-label">Seletiva</span></div></div>
+      <div class="sched-row"><div class="sched-date">11/12</div><div class="sched-ep">EPISÓDIO 4</div><div class="sched-stage"><span class="pill-label">Seletiva</span></div></div>
+      <div class="sched-row"><div class="sched-date">15/12</div><div class="sched-ep">EPISÓDIO 5</div><div class="sched-stage"><span class="pill-label outline">Dinâmicas</span></div></div>
+      <div class="sched-row"><div class="sched-date">16/12</div><div class="sched-ep">EPISÓDIO 6</div><div class="sched-stage"><span class="pill-label outline">Dinâmicas</span></div></div>
+      <div class="sched-row"><div class="sched-date">17/12</div><div class="sched-ep">EPISÓDIO 7</div><div class="sched-stage"><span class="pill-label outline">Dinâmicas</span></div></div>
+      <div class="sched-row"><div class="sched-date">13/01</div><div class="sched-ep">EPISÓDIO 8</div><div class="sched-stage"><span class="pill-label">Grande Final · ao vivo</span></div></div>
     </div>
   </div>
 </section>
 
-<section class="quem" id="quem-faz">
-  <div class="wrap quem-grid">
-    <div class="quem-photo" data-reveal="left">
-      <img src="assets/photos/energy-pattern.jpg" alt="Cultura gaúcha e humor no PB Procura">
-    </div>
+<section class="split" id="quem-faz">
+  <svg class="star" viewBox="0 0 100 100" style="top:-8%; left:4%; width:110px; height:110px; opacity:.85;"><path d="M50 2 L58 38 L92 30 L64 54 L84 84 L50 66 L16 84 L36 54 L8 30 L42 38 Z"/></svg>
+  <div class="wrap split-grid reverse">
     <div data-reveal="right">
-      <div class="eyebrow">Quem faz</div>
+      <div class="eyebrow-icon">
+        <svg viewBox="0 0 60 60" fill="none"><circle cx="26" cy="26" r="16" stroke="var(--pb-teal)" stroke-width="7"/><line x1="15" y1="40" x2="9" y2="49" stroke="var(--pb-teal)" stroke-width="9" stroke-linecap="round"/></svg>
+      </div>
       <h2>Pretinho Básico + ATL TV</h2>
       <p>O Pretinho Básico sabe como ninguém o que é procurar um novo talento: foi assim que o próprio grupo se formou, em 2015. Agora, ao lado da ATL TV (Rede Atlântida), o PB usa essa experiência para revelar o próximo grande nome da comédia gaúcha — fortalecendo a ATL TV como referência em entretenimento original e gerando conteúdo para streaming e redes sociais.</p>
-      <div class="quem-logos">
-        <span>PB</span>
-        <span>ATL TV</span>
-      </div>
+    </div>
+    <div class="split-photo" data-reveal="left">
+      <img src="assets/photos/gaucho-culture.jpg" alt="Cultura gaúcha no PB Procura">
     </div>
   </div>
 </section>
 
 <section class="cta-final">
   <div class="wrap">
-    <h2 data-reveal>O Rio Grande do Sul está prestes a conhecer o seu novo comediante favorito.</h2>
+    <h2 data-reveal>O Rio Grande do Sul está prestes a conhecer o seu <span class="accent">novo comediante favorito</span>.</h2>
     <p data-reveal>Não perca nenhum episódio do PB Procura.</p>
-    <a class="btn" href="#grade" data-reveal>Ver grade de exibição</a>
+    <a class="btn-pill" href="#grade" data-reveal>Ver grade de exibição</a>
   </div>
 </section>
 
 <footer>
   <div class="wrap">
-    <a class="btn back-btn" href="../index.html">← Voltar para ATL TV</a>
+    <a class="btn-pill back-btn" href="../index.html">← Voltar para ATL TV</a>
     <p>PB Procura é um projeto do <strong>Pretinho Básico</strong> e da <strong>ATL TV</strong> (Rede Atlântida).</p>
     <div class="fine">Datas, convidados e premiação sujeitos a ajustes de produção.</div>
   </div>
 </footer>
 
 <script>
-  // nav solid on scroll
   const nav = document.getElementById('nav');
-  window.addEventListener('scroll', () => {
-    nav.classList.toggle('solid', window.scrollY > 40);
-  }, { passive: true });
+  window.addEventListener('scroll', () => { nav.classList.toggle('solid', window.scrollY > 40); }, { passive: true });
 
-  // scroll reveal
   const revealEls = document.querySelectorAll('[data-reveal]');
   const revealObserver = new IntersectionObserver((entries) => {
     entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in-view'); revealObserver.unobserve(e.target); } });
-  }, { threshold: 0.15 });
+  }, { threshold: 0.12 });
   revealEls.forEach(el => revealObserver.observe(el));
-
-  // step timeline fill + active markers
-  const steps = document.querySelectorAll('[data-step]');
-  const stepsWrap = document.querySelector('.steps');
-  const stepObserver = new IntersectionObserver((entries) => {
-    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in-view'); });
-    const lastActive = [...steps].filter(s => s.classList.contains('in-view')).length;
-    if (lastActive >= steps.length) stepsWrap.classList.add('line-fill');
-  }, { threshold: 0.4 });
-  steps.forEach(el => stepObserver.observe(el));
-  // fill line progressively as steps activate
-  const lineObserver = new IntersectionObserver((entries) => {
-    entries.forEach(e => { if (e.isIntersecting) stepsWrap.classList.add('line-fill'); });
-  }, { threshold: 0.2 });
-  if (steps.length) lineObserver.observe(steps[steps.length - 1]);
-
-  // number counters
-  const counters = document.querySelectorAll('[data-count-to]');
-  const countObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (!entry.isIntersecting) return;
-      const el = entry.target;
-      const target = parseInt(el.getAttribute('data-count-to'), 10);
-      const duration = 900;
-      const start = performance.now();
-      function tick(now) {
-        const p = Math.min(1, (now - start) / duration);
-        el.textContent = Math.round(p * target);
-        if (p < 1) requestAnimationFrame(tick);
-      }
-      requestAnimationFrame(tick);
-      countObserver.unobserve(el);
-    });
-  }, { threshold: 0.6 });
-  counters.forEach(el => countObserver.observe(el));
 </script>
 
 </body>
