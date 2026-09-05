@@ -138,8 +138,18 @@
   .st-ok { color: var(--accent); font-weight: 700; white-space: nowrap; }
   .st-pendente { color: #ff5c5c; font-weight: 700; white-space: nowrap; }
 
+  .subpages { display: flex; justify-content: center; gap: 16px; flex-wrap: wrap; margin-top: 64px; }
+  .subpage-btn {
+    display: inline-flex; align-items: center; gap: 10px;
+    padding: 13px 26px; border-radius: 999px; border: 1.5px solid var(--line);
+    color: var(--text); text-decoration: none; font-size: 14px; font-weight: 700;
+    letter-spacing: 0.02em; transition: border-color .2s ease, color .2s ease, background .2s ease;
+  }
+  .subpage-btn:hover { border-color: var(--accent); color: var(--accent); background: rgba(45,212,238,.08); }
+  .subpage-btn .arrow { color: var(--accent); }
+
   footer {
-    margin-top: 64px; padding-top: 22px; border-top: 1px solid var(--line);
+    margin-top: 22px; padding-top: 22px; border-top: 1px solid var(--line);
     color: var(--muted); font-size: 12px; letter-spacing: 0.04em; text-align: center;
   }
 
@@ -360,6 +370,11 @@
       </ul>
     </div>
 
+  </div>
+
+  <div class="subpages">
+    <a class="subpage-btn" href="PB Procura/index.html">PB Procura <span class="arrow">→</span></a>
+    <a class="subpage-btn" href="Rock do Milenio/index.html">Rock do Milênio <span class="arrow">→</span></a>
   </div>
 
   <footer>ATL TV · Proposta comercial — documento confidencial</footer>
