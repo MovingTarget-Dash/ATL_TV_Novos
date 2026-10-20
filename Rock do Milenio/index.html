@@ -171,7 +171,7 @@
   .cta-final .btn-pill { margin-top: 12px; }
 
   footer { border-top: 1px solid var(--rm-border); padding: 56px 40px 50px; text-align: center; font-size: 12px; color: var(--rm-muted); }
-  footer .back-btn { margin-bottom: 26px; }
+  footer .footer-btns { display: flex; flex-wrap: wrap; justify-content: center; gap: 14px; margin-bottom: 26px; }
   footer p { margin: 0; }
   footer .fine { margin-top: 10px; opacity: .8; }
 </style>
@@ -184,6 +184,7 @@
     <a href="#conceito">Conceito</a>
     <a href="#estrutura">Episódios</a>
     <a href="#estetico">Estética</a>
+    <a href="dashboard/">Dashboard</a>
   </div>
 </nav>
 
@@ -364,7 +365,10 @@
 
 <footer>
   <div class="wrap">
-    <a class="btn-pill back-btn" href="../index.html">← Voltar para ATL TV</a>
+    <div class="footer-btns">
+      <a class="btn-pill outline" href="dashboard/">Dashboard de campanhas →</a>
+      <a class="btn-pill back-btn" href="../index.html">← Voltar para ATL TV</a>
+    </div>
     <p>Rock do Milênio é um documentário original produzido para a <strong>ATL TV</strong> (Rede Atlântida).</p>
     <div class="fine">Imagens de arquivo cedidas pela produção. Conteúdo sujeito a ajustes editoriais.</div>
   </div>
