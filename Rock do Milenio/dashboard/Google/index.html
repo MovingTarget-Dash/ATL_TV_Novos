@@ -124,6 +124,7 @@
   .bp-k{font-size:10px;color:var(--ink-dim);text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px;white-space:nowrap;}
   .bp-v{font-family:var(--mono);font-size:14px;font-weight:600;color:var(--ink);white-space:nowrap;}
   .bp-pct{color:var(--accent-2);}
+  .bp-pill{background:rgba(21,23,28,.88);padding:2px 8px;border-radius:9px;}
   .bp-bar-pct{position:absolute;left:0;right:0;top:0;bottom:0;display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:11px;font-weight:600;line-height:1;pointer-events:none;}
   .bp-cell{min-width:0;}
 </style>
@@ -390,7 +391,7 @@ document.getElementById('phaseCards').innerHTML=ph.map((p,i)=>`
 document.querySelector('#phaseTable tbody').innerHTML=ph.map(p=>`<tr><td class="brand">${p.name}<span style="color:var(--ink-dim);font-size:11px;"> · ${p.range} · total das ${p.keys.length} campanhas</span></td><td>${fmtMoney2(p.cost)}</td><td>${fmtNum(p.imp)}</td><td>${fmtNum(p.views)}</td><td>${fmtNum(p.tv)}</td><td>${fmtNum(p.eng)}</td><td>${fmtMoney3(p.cpv)}</td><td>${fmtMoney2(p.cpm)}</td></tr>`).join('');
 document.getElementById('phaseFoot').innerHTML='Cada fase = soma das 2 campanhas (<code>u01A</code> + <code>u01B</code>; <code>02A</code> + <code>02B</code>). CPV e CPM da fase s&atilde;o recalculados sobre os totais; a taxa de engajamento &eacute; reportada pelo Google Ads por campanha e n&atilde;o &eacute; recalcul&aacute;vel por fase. Campanhas de Exibi&ccedil;&atilde;o (YT) e de Alcance t&ecirc;m objetivos diferentes: CPV e engajamento n&atilde;o s&atilde;o diretamente compar&aacute;veis entre elas.';
 
-const sorted=[{b:'Fase 1 · Acústico Bandas Gaúchas (2 campanhas)',v:ph[0].cost,color:'#ff7a3d'},{b:'Fase 2 · Rock do Milênio (2 campanhas)',v:ph[1].cost,color:'#8b5cf6'}].sort((x,y)=>y.v-x.v);
+const sorted=[{b:'Fase 1 · Acústico Bandas Gaúchas (2 campanhas)',v:ph[0].cost,color:'#ff7a3d'},{b:'Fase 2 · Rock do Milênio (2 campanhas)',v:ph[1].cost,color:'#8b5cf6'},{b:'Fase 3 · Episódios (não iniciada)',v:0,color:'#22d3ee'}]; // sempre em ordem de fase, não por valor
 new Chart(document.getElementById('campChart'),{type:'bar',
   data:{labels:sorted.map(b=>b.b),datasets:[{data:sorted.map(b=>b.v),backgroundColor:sorted.map(b=>b.color),borderRadius:4,barPercentage:.6,categoryPercentage:.7}]},
   plugins:[{id:'vl',afterDatasetsDraw(chart){const {ctx}=chart,meta=chart.getDatasetMeta(0);ctx.save();ctx.font="13px 'IBM Plex Mono',monospace";ctx.fillStyle=G;ctx.textBaseline='middle';meta.data.forEach((bar,i)=>ctx.fillText(fmtMoney2(sorted[i].v),bar.x+8,bar.y));ctx.restore();}}],
@@ -418,16 +419,17 @@ KEYS.forEach((k,i)=>{document.getElementById('stageFoot'+i).innerHTML=foot[k]+' 
 (function(){
   const budget=[500,800,5700], total=budget.reduce((a,b)=>a+b,0);
   const real1=ph[0].cost, real2=ph[1].cost, real=real1+real2;
+  const pcol=v=>v>100?'#ff5d5d':'var(--accent-2)';
   const pf=v=>isFinite(v)?v.toFixed(1).replace('.',',')+'%':'—';
   const cards=[
     {label:'Planejado (3 fases)',value:total?fmtMoney2(total):'a definir'},
     {label:'Realizado · 22/09 – 18/10',value:fmtMoney2(real)},
-    {label:'Realizado ÷ planejado total',value:pf(real/total*100)},
-    {label:'Fase 1 · realizado ÷ planejado',value:pf(real1/budget[0]*100)},
-    {label:'Fase 2 · realizado ÷ planejado',value:pf(real2/budget[1]*100),note:'em curso'}
+    {label:'Realizado ÷ planejado total',value:pf(real/total*100),pc:real/total*100},
+    {label:'Fase 1 · realizado ÷ planejado',value:pf(real1/budget[0]*100),pc:real1/budget[0]*100},
+    {label:'Fase 2 · realizado ÷ planejado',value:pf(real2/budget[1]*100),pc:real2/budget[1]*100,note:'em curso'}
   ];
-  document.getElementById('budgetCards').innerHTML=cards.map((c,j)=>`<div class="stage-card"><div class="label">${c.label}</div><div class="value ${j===0?'accent':(j===1?'green':'')}"><span class="scard-num">${c.value}</span>${c.note?`<span class="scard-note">${c.note}</span>`:''}</div></div>`).join('');
-  document.getElementById('budgetSummary').innerHTML='<strong style="color:var(--accent-2);">'+fmtMoney2(real)+'</strong> realizados &middot; '+fmtMoney2(total-real)+' a investir &middot; '+pf(real/total*100);
+  document.getElementById('budgetCards').innerHTML=cards.map((c,j)=>`<div class="stage-card"><div class="label">${c.label}</div><div class="value ${j===0?'accent':(j===1?'green':'')}"><span class="scard-num"${c.pc!==undefined?` style="color:${pcol(c.pc)}"`:''}>${c.value}</span>${c.note?`<span class="scard-note">${c.note}</span>`:''}</div></div>`).join('');
+  document.getElementById('budgetSummary').innerHTML='<strong style="color:var(--accent-2);">'+fmtMoney2(real)+'</strong> realizados &middot; '+fmtMoney2(total-real)+' a investir &middot; <strong style="color:'+pcol(real/total*100)+'">'+pf(real/total*100)+'</strong>';
   const seg=total?budget.map(b=>b/total*100):[33.3,33.3,33.4], b1=seg[0], b2=seg[0]+seg[1];
   const f1=document.getElementById('budgetFill1'), f2=document.getElementById('budgetFill2');
   f1.style.width=(seg[0]*Math.min(real1/budget[0],1)||0)+'%';
@@ -439,11 +441,11 @@ KEYS.forEach((k,i)=>{document.getElementById('stageFoot'+i).innerHTML=foot[k]+' 
   const phs=[{n:'Fase 1',r:'22/09 a 25/09',b:budget[0],v:real1},{n:'Fase 2',r:'26/09 a 22/10',b:budget[1],v:real2},{n:'Fase 3',r:'23/10 a 29/11',b:budget[2],v:0}];
   document.getElementById('budgetPhases').innerHTML=phs.map(x=>{const pc=x.b?x.v/x.b*100:NaN,empty=x.v===0;
     return '<div class="phase-col" style="gap:0;"><div class="bp-title"><span>'+x.n+' &middot; '+x.r+'</span></div>'+
-    '<div class="bp-bar'+(empty?' empty':'')+'">'+(empty?'':'<div class="bp-fill" style="width:'+(Math.min(pc,100)||0)+'%;"></div>')+'<span class="bp-bar-pct" style="color:'+(pc>=50?'#15171c':'var(--ink)')+';">'+pf(pc)+'</span></div>'+
+    '<div class="bp-bar'+(empty?' empty':'')+'">'+(empty?'':'<div class="bp-fill" style="width:'+(Math.min(pc,100)||0)+'%;"></div>')+'<span class="bp-bar-pct"><span class="bp-pill" style="color:'+pcol(pc)+';">'+pf(pc)+'</span></span></div>'+
     '<div class="bp-box">'+
     '<div class="bp-cell"><div class="bp-k">Previsto</div><div class="bp-v">'+(x.b?fmtMoney2(x.b):'a definir')+'</div></div>'+
     '<div class="bp-cell"><div class="bp-k">Realizado</div><div class="bp-v">'+fmtMoney2(x.v)+'</div></div>'+
-    '<div class="bp-cell"><div class="bp-k">Atingido</div><div class="bp-v bp-pct"'+(pc>100?' style="color:#ff5d5d;"':'')+'>'+pf(pc)+'</div></div>'+
+    '<div class="bp-cell"><div class="bp-k">Atingido</div><div class="bp-v bp-pct" style="color:'+pcol(pc)+';">'+pf(pc)+'</div></div>'+
     '</div></div>';}).join('');
   document.getElementById('budgetFoot').innerHTML='Or&ccedil;amento planejado do Google: Fase 1 (22&ndash;25/09) '+fmtMoney2(budget[0])+' &middot; Fase 2 (26/09&ndash;22/10) '+fmtMoney2(budget[1])+' &middot; Fase 3 (23/10&ndash;29/11) '+fmtMoney2(budget[2])+' &middot; total '+fmtMoney2(total)+'. Realizado = custo das campanhas Google no per&iacute;odo (22/09 a 18/10). Fase 1: '+pf(real1/budget[0]*100)+' do planejado; Fase 2 em curso: '+fmtMoney2(real2)+' de '+fmtMoney2(budget[1])+' ('+pf(real2/budget[1]*100)+'). Fase 3 ainda n&atilde;o iniciada. A barra tem as fases na propor&ccedil;&atilde;o do or&ccedil;amento de cada uma.';
 })();
