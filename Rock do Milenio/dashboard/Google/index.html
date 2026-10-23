@@ -110,6 +110,22 @@
   .nav-extra .gads-icon{height:24px;width:auto;display:block;}
   .nav-extra .gads-word{height:15px;width:auto;display:block;}
   .google-shot{display:block;width:100%;height:auto;border-radius:6px;}
+  .phase-cols{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px;margin-bottom:12px;}
+  .phase-col{border:0.25px solid rgba(139,145,157,.55);border-radius:12px;padding:12px;display:flex;flex-direction:column;gap:12px;background:rgba(255,122,61,0.04);}
+  .phase-col-title{font-family:var(--mono);font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin:0 2px;}
+  .phase-col .stage-card{height:84px;padding:12px 14px;display:flex;flex-direction:column;justify-content:flex-start;}
+  .phase-col .stage-card .label{height:14px;line-height:14px;margin-bottom:6px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  .phase-col .stage-card .value{line-height:1.25;}
+  #budgetCards .stage-card{display:flex;flex-direction:column;}
+  #budgetCards .stage-card .label{min-height:26px;line-height:1.25;}
+  #budgetCards .stage-card .value{margin-top:auto;}
+  @media(max-width:900px){.phase-cols{grid-template-columns:1fr;}}
+  .bp-box{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px 14px;margin-top:12px;background:var(--bg);border:1px solid var(--panel-border);border-radius:8px;padding:12px 14px;}
+  .bp-k{font-size:10px;color:var(--ink-dim);text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px;white-space:nowrap;}
+  .bp-v{font-family:var(--mono);font-size:14px;font-weight:600;color:var(--ink);white-space:nowrap;}
+  .bp-pct{color:var(--accent-2);}
+  .bp-bar-pct{position:absolute;left:0;right:0;top:0;bottom:0;display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:11px;font-weight:600;line-height:1;pointer-events:none;}
+  .bp-cell{min-width:0;}
 </style>
 </head>
 <body>
@@ -172,15 +188,22 @@
       <h2>1 - Planejamento &middot; objetivos e fases</h2>
       <span class="note">22/09 &mdash; 29/11/2026</span>
     </div>
-    <div class="stage-card-row phase3" style="margin-bottom:12px;">
-      <div class="stage-card"><div class="label">Ac&uacute;stico Bandas Ga&uacute;chas &middot; objetivos</div><div class="value accent"><span class="scard-num" style="white-space:normal;">Alcance (CPM) e Video View (CPV)</span></div></div>
-      <div class="stage-card"><div class="label">Rock do Mil&ecirc;nio / Teaser &middot; objetivos</div><div class="value accent"><span class="scard-num" style="white-space:normal;">Alcance (CPM) e Video View (CPV)</span></div></div>
-      <div class="stage-card"><div class="label">Rock do Mil&ecirc;nio / Epis&oacute;dios &middot; objetivos</div><div class="value accent"><span class="scard-num" style="white-space:normal;">Alcance (CPM) e Video View (CPV)</span></div></div>
-    </div>
-    <div class="stage-card-row phase3">
-      <div class="stage-card"><div class="label">Fase 1 &middot; 22/09 a 25/09</div><div class="value"><span class="scard-num accent" style="color:var(--accent);">Ac&uacute;stico</span><span class="scard-note">4 dias &middot; <span id="f1spend"></span></span></div></div>
-      <div class="stage-card"><div class="label">Fase 2 &middot; 26/09 a 22/10</div><div class="value"><span class="scard-num" style="color:var(--accent);">Rock do Mil&ecirc;nio</span><span class="scard-note">27 dias &middot; <span id="f2spend"></span></span></div></div>
-      <div class="stage-card"><div class="label">Fase 3 &middot; epis&oacute;dios &middot; 23/10 a 29/11</div><div class="value"><span class="scard-num" style="color:var(--accent);">6 epis&oacute;dios</span><span class="scard-note">38 dias &middot; R$ 5.700,00 previsto</span></div></div>
+    <div class="phase-cols">
+      <div class="phase-col"><div class="phase-col-title">Fase 1</div>
+        <div class="stage-card"><div class="label">Ac&uacute;stico Bandas Ga&uacute;chas &middot; objetivos</div><div class="value accent"><span class="scard-num" style="white-space:normal;">Alcance (CPM) e Video View (CPV)</span></div></div>
+        <div class="stage-card"><div class="label">Fase 1 &middot; 22/09 a 25/09</div><div class="value"><span class="scard-num accent" style="color:var(--accent);">Ac&uacute;stico</span><span class="scard-note">4 dias</span></div></div>
+        <div class="stage-card"><div class="label">Fase 1 - Previsto</div><div class="value"><span class="scard-num" style="color:var(--accent);">R$ 500,00</span></div></div>
+      </div>
+      <div class="phase-col"><div class="phase-col-title">Fase 2</div>
+        <div class="stage-card"><div class="label">Rock do Mil&ecirc;nio / Teaser &middot; objetivos</div><div class="value accent"><span class="scard-num" style="white-space:normal;">Alcance (CPM) e Video View (CPV)</span></div></div>
+        <div class="stage-card"><div class="label">Fase 2 &middot; 26/09 a 22/10</div><div class="value"><span class="scard-num" style="color:var(--accent);">Rock do Mil&ecirc;nio</span><span class="scard-note">27 dias</span></div></div>
+        <div class="stage-card"><div class="label">Fase 2 - Previsto</div><div class="value"><span class="scard-num" style="color:var(--accent);">R$ 800,00</span></div></div>
+      </div>
+      <div class="phase-col"><div class="phase-col-title">Fase 3</div>
+        <div class="stage-card"><div class="label">Rock do Mil&ecirc;nio / Epis&oacute;dios &middot; objetivos</div><div class="value accent"><span class="scard-num" style="white-space:normal;">Video View (CPV)</span></div></div>
+        <div class="stage-card"><div class="label">Fase 3 &middot; epis&oacute;dios &middot; 23/10 a 29/11</div><div class="value"><span class="scard-num" style="color:var(--accent);">6 epis&oacute;dios</span><span class="scard-note">38 dias</span></div></div>
+        <div class="stage-card"><div class="label">Fase 3 - Previsto</div><div class="value"><span class="scard-num" style="color:var(--accent);">R$ 5.700,00</span></div></div>
+      </div>
     </div>
     <div style="margin:22px 0 6px;">
       <div style="display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:6px;margin-bottom:10px;">
@@ -205,7 +228,7 @@
         <div style="width:55.07%;text-align:center;">Fase 3 &middot; epis&oacute;dios &middot; 38 dias</div>
       </div>
     </div>
-    <div class="foot-note" style="margin-top:26px;">Fase 1 (22 a 25/09, 4 dias): Ac&uacute;stico Bandas Ga&uacute;chas. Fase 2 (26/09 a 22/10, 27 dias): Rock do Mil&ecirc;nio. Fase 3 (23/10 a 29/11, 38 dias): epis&oacute;dios. Valores ao lado das fases = investimento realizado at&eacute; 18/10. Objetivos conforme o tipo de cada campanha (a confirmar com o briefing).</div>
+    <div class="foot-note" style="margin-top:26px;">Fase 1 (22 a 25/09, 4 dias): Ac&uacute;stico Bandas Ga&uacute;chas. Fase 2 (26/09 a 22/10, 27 dias): Rock do Mil&ecirc;nio. Fase 3 (23/10 a 29/11, 38 dias): epis&oacute;dios. Objetivos conforme o tipo de cada campanha (a confirmar com o briefing).</div>
   </div>
 
   <div class="panel stage-panel" id="sec-orcado">
@@ -365,7 +388,6 @@ document.getElementById('phaseCards').innerHTML=ph.map((p,i)=>`
   <div class="value ${i?'':'accent'}" style="margin-bottom:8px;"><span class="scard-num">${fmtMoney2(p.cost)}</span><span class="scard-note">${t.cost?(p.cost/t.cost*100).toFixed(1).replace('.',','):'—'}% do investimento total</span></div>
   <div class="scard-note" style="white-space:normal;line-height:1.7;">${fmtNum(p.imp)} impressões · ${fmtNum(p.views)} views YouTube<br>${fmtNum(p.tv)} views TrueView · ${fmtNum(p.eng)} engajamentos<br>CPV ${fmtMoney3(p.cpv)} · CPM ${fmtMoney2(p.cpm)}</div></div>`).join('');
 document.querySelector('#phaseTable tbody').innerHTML=ph.map(p=>`<tr><td class="brand">${p.name}<span style="color:var(--ink-dim);font-size:11px;"> · ${p.range} · total das ${p.keys.length} campanhas</span></td><td>${fmtMoney2(p.cost)}</td><td>${fmtNum(p.imp)}</td><td>${fmtNum(p.views)}</td><td>${fmtNum(p.tv)}</td><td>${fmtNum(p.eng)}</td><td>${fmtMoney3(p.cpv)}</td><td>${fmtMoney2(p.cpm)}</td></tr>`).join('');
-document.getElementById('f1spend').textContent=fmtMoney2(ph[0].cost);document.getElementById('f2spend').textContent=fmtMoney2(ph[1].cost);
 document.getElementById('phaseFoot').innerHTML='Cada fase = soma das 2 campanhas (<code>u01A</code> + <code>u01B</code>; <code>02A</code> + <code>02B</code>). CPV e CPM da fase s&atilde;o recalculados sobre os totais; a taxa de engajamento &eacute; reportada pelo Google Ads por campanha e n&atilde;o &eacute; recalcul&aacute;vel por fase. Campanhas de Exibi&ccedil;&atilde;o (YT) e de Alcance t&ecirc;m objetivos diferentes: CPV e engajamento n&atilde;o s&atilde;o diretamente compar&aacute;veis entre elas.';
 
 const sorted=[{b:'Fase 1 · Acústico Bandas Gaúchas (2 campanhas)',v:ph[0].cost,color:'#ff7a3d'},{b:'Fase 2 · Rock do Milênio (2 campanhas)',v:ph[1].cost,color:'#8b5cf6'}].sort((x,y)=>y.v-x.v);
@@ -416,9 +438,13 @@ KEYS.forEach((k,i)=>{document.getElementById('stageFoot'+i).innerHTML=foot[k]+' 
   document.getElementById('budgetMonths').innerHTML=budget.map((b,i)=>'<div style="width:'+seg[i]+'%;text-align:center;white-space:nowrap;">Fase '+(i+1)+' · '+(b?fmtMoney(b):'a definir')+'</div>').join('');
   const phs=[{n:'Fase 1',r:'22/09 a 25/09',b:budget[0],v:real1},{n:'Fase 2',r:'26/09 a 22/10',b:budget[1],v:real2},{n:'Fase 3',r:'23/10 a 29/11',b:budget[2],v:0}];
   document.getElementById('budgetPhases').innerHTML=phs.map(x=>{const pc=x.b?x.v/x.b*100:NaN,empty=x.v===0;
-    return '<div><div class="bp-title"><span>'+x.n+' &middot; '+x.r+'</span></div>'+
-    '<div class="bp-bar'+(empty?' empty':'')+'">'+(empty?'':'<div class="bp-fill" style="width:'+(Math.min(pc,100)||0)+'%;"></div>')+'</div>'+
-    '<div class="bp-stats"><span>Previsto <strong>'+(x.b?fmtMoney2(x.b):'a definir')+'</strong></span><span>Realizado <strong>'+fmtMoney2(x.v)+'</strong></span><span class="pct"'+(pc>100?' style="color:#ff5d5d;"':'')+'>'+pf(pc)+'</span></div></div>';}).join('');
+    return '<div class="phase-col" style="gap:0;"><div class="bp-title"><span>'+x.n+' &middot; '+x.r+'</span></div>'+
+    '<div class="bp-bar'+(empty?' empty':'')+'">'+(empty?'':'<div class="bp-fill" style="width:'+(Math.min(pc,100)||0)+'%;"></div>')+'<span class="bp-bar-pct" style="color:'+(pc>=50?'#15171c':'var(--ink)')+';">'+pf(pc)+'</span></div>'+
+    '<div class="bp-box">'+
+    '<div class="bp-cell"><div class="bp-k">Previsto</div><div class="bp-v">'+(x.b?fmtMoney2(x.b):'a definir')+'</div></div>'+
+    '<div class="bp-cell"><div class="bp-k">Realizado</div><div class="bp-v">'+fmtMoney2(x.v)+'</div></div>'+
+    '<div class="bp-cell"><div class="bp-k">Atingido</div><div class="bp-v bp-pct"'+(pc>100?' style="color:#ff5d5d;"':'')+'>'+pf(pc)+'</div></div>'+
+    '</div></div>';}).join('');
   document.getElementById('budgetFoot').innerHTML='Or&ccedil;amento planejado do Google: Fase 1 (22&ndash;25/09) '+fmtMoney2(budget[0])+' &middot; Fase 2 (26/09&ndash;22/10) '+fmtMoney2(budget[1])+' &middot; Fase 3 (23/10&ndash;29/11) '+fmtMoney2(budget[2])+' &middot; total '+fmtMoney2(total)+'. Realizado = custo das campanhas Google no per&iacute;odo (22/09 a 18/10). Fase 1: '+pf(real1/budget[0]*100)+' do planejado; Fase 2 em curso: '+fmtMoney2(real2)+' de '+fmtMoney2(budget[1])+' ('+pf(real2/budget[1]*100)+'). Fase 3 ainda n&atilde;o iniciada. A barra tem as fases na propor&ccedil;&atilde;o do or&ccedil;amento de cada uma.';
 })();
 </script>
