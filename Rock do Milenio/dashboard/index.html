@@ -262,7 +262,7 @@
   <div class="kpi-grid" id="kpiGrid"></div>
   <div class="foot-note" style="margin:-8px 0 24px;">
     <strong>Alcance e Frequ&ecirc;ncia</strong> do per&iacute;odo = valores reais do Gerenciador: <strong>285.900 / 1,70</strong>. Mensal: Set <strong>121.748 / 1,27</strong> &middot; Out <strong>198.046 / 1,68</strong>. Alcance n&atilde;o &eacute; som&aacute;vel: a soma dos meses (319.794) fica acima do total do per&iacute;odo (285.900, deduplicado).
-    "Visualiza&ccedil;&otilde;es" = <code>media_views</code>. "Engajamento" = <code>post_engagement</code>.
+    "Visualiza&ccedil;&otilde;es" = <code>media_views</code>. "Engajamento" = <code>post_engagement</code>. Minigr&aacute;ficos = valor di&aacute;rio de 22/09 a 22/10; no Alcance e na Frequ&ecirc;ncia a curva di&aacute;ria &eacute; apenas ilustrativa (soma e raz&atilde;o di&aacute;rias das campanhas), e os valores dos quadros seguem sendo os reais do Gerenciador.
   </div>
 
   <div class="panel">
@@ -437,7 +437,25 @@ function sparkline(id,series,color,h){
       backgroundColor:ctx=>{const g=ctx.chart.ctx.createLinearGradient(0,0,0,h||48);g.addColorStop(0,color+'70');g.addColorStop(.6,color+'20');g.addColorStop(1,color+'00');return g;}}]},
     options:{responsive:true,maintainAspectRatio:false,animation:false,plugins:{legend:{display:false},tooltip:{enabled:false}},scales:{x:{display:false},y:{display:false}}}});
 }
-kpis.forEach((k,i)=>sparkline('spark'+i,k.series,k.color));
+// série diária dos minigráficos (22/09 a 22/10): RAW por dia + vídeo por dia (API Meta Ads)
+const VID={"2026-09-22":[12910,378,522],"2026-09-23":[24334,1002,1466],"2026-09-24":[23762,782,1142],"2026-09-25":[12435,351,538],"2026-09-29":[3540,17,26],"2026-09-30":[4022,24,41],"2026-10-01":[6572,44,65],"2026-10-02":[4140,21,26],"2026-10-03":[3744,23,21],"2026-10-04":[1648,12,7],"2026-10-05":[428,0,0],"2026-10-06":[974,7,9],"2026-10-07":[55,0,0],"2026-10-08":[637,3,1],"2026-10-09":[190,0,0],"2026-10-10":[232,1,0],"2026-10-11":[294,3,1],"2026-10-12":[2473,7,11],"2026-10-13":[3307,17,24],"2026-10-14":[3205,17,26],"2026-10-15":[3504,17,13],"2026-10-16":[3753,16,20],"2026-10-17":[13324,62,10],"2026-10-18":[11376,81,19],"2026-10-19":[8222,43,14],"2026-10-20":[376,3,0],"2026-10-21":[41,0,0],"2026-10-22":[4,0,0]}; // data -> [video plays, thruplays, vídeo até 75%]
+const byDay=fn=>daily.map(d=>fn(RAW.filter(r=>r[F.date]===d.Day),d.Day));
+const sm=(rows,f)=>rows.reduce((s,r)=>s+r[f],0);
+const DSER=[
+  byDay(r=>sm(r,F.spend)),
+  byDay(r=>sm(r,F.imp)),
+  byDay(r=>sm(r,F.reach)),
+  byDay(r=>{const re=sm(r,F.reach);return re?sm(r,F.imp)/re:0;}),
+  byDay(r=>sm(r,F.views)),
+  byDay((r,d)=>(VID[d]||[0,0,0])[0]),
+  byDay(r=>sm(r,F.eng)),
+  byDay(r=>sm(r,F.link)),
+  byDay(r=>sm(r,F.lpv)),
+  byDay(r=>{const im=sm(r,F.imp);return im?sm(r,F.spend)/im*1000:0;}),
+  byDay((r,d)=>(VID[d]||[0,0,0])[1]),
+  byDay((r,d)=>(VID[d]||[0,0,0])[2])
+];
+kpis.forEach((k,i)=>sparkline('spark'+i,DSER[i],k.color));
 
 const labels=daily.map(d=>{const p=d.Day.split('-');return p[2]+'/'+p[1];});
 const axis={ticks:{color:'#8b919d',autoSkip:true,maxRotation:0,maxTicksLimit:16},grid:{color:'#2a2e38'}};
