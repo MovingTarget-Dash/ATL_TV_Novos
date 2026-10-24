@@ -138,6 +138,25 @@
   .gs-tile .gs-v{font-family:var(--mono);font-size:20px;font-weight:600;color:var(--tc);}
   .gs-tile.static .gs-v{color:var(--ink);}
   @media(max-width:640px){.gs-tiles{grid-template-columns:repeat(2,minmax(0,1fr));}}
+  .two-col{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px;margin-bottom:20px;}
+  @media(max-width:900px){.two-col{grid-template-columns:1fr;}}
+  .two-col .panel{margin-bottom:0;}
+  .meter-row{margin-bottom:14px;}
+  .meter-head{display:flex;justify-content:space-between;align-items:baseline;gap:10px;font-size:12px;margin-bottom:6px;flex-wrap:wrap;}
+  .meter-head b{font-weight:600;}
+  .meter-head span{font-family:var(--mono);color:var(--ink-dim);font-size:11px;}
+  .meter-bar{height:14px;background:#262a33;border:1px solid #3a3f4b;border-radius:7px;overflow:hidden;}
+  .meter-fill{height:100%;background:var(--accent);}
+  .insight{margin-top:16px;padding:12px 14px;border:1px solid var(--panel-border);border-left:3px solid var(--accent);border-radius:8px;background:var(--bg);font-size:12px;color:var(--ink-dim);line-height:1.6;}
+  .insight strong{color:var(--ink);}
+  .mini-cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-bottom:16px;}
+  .heat{display:grid;grid-template-columns:44px repeat(24,minmax(0,1fr));gap:2px;font-family:var(--mono);font-size:10px;color:var(--ink-dim);}
+  .heat .hl{display:flex;align-items:center;}
+  .heat .hc{height:22px;border-radius:3px;}
+  .heat .hh{text-align:center;padding-bottom:4px;}
+  .heat-legend{display:flex;align-items:center;gap:8px;margin-top:10px;font-size:10px;color:var(--ink-dim);font-family:var(--mono);}
+  .heat-legend i{display:inline-block;width:120px;height:8px;border-radius:4px;background:linear-gradient(90deg,rgba(255,122,61,.08),rgba(255,122,61,1));}
+  @media(max-width:700px){.heat{font-size:8px;grid-template-columns:30px repeat(24,minmax(0,1fr));}}
 </style>
 </head>
 <body>
@@ -280,12 +299,10 @@
   <div class="panel-head" id="sec-metricas" style="margin-bottom:12px;"><h2>3 - Quadro geral de m&eacute;tricas</h2></div>
   <div class="kpi-grid" id="kpiGrid"></div>
   <div class="foot-note" style="margin:-8px 0 24px;">
-    <strong>Fonte</strong>: Relat&oacute;rio de campanha do Google Ads (CSV, 22/09 a 22/10/2026). "Visualiza&ccedil;&otilde;es" = <code>Visualiza&ccedil;&otilde;es p&uacute;blicas do YouTube</code>. "Engajamento" = <code>Engajamentos</code>; taxa de engajamento = valor reportado pelo Google Ads (n&atilde;o &eacute; engajamentos &divide; impress&otilde;es).
+    <strong>Fonte</strong>: Relat&oacute;rio de campanha do Google Ads (CSV, 22/09 a 22/10/2026). "Visualiza&ccedil;&otilde;es" = <code>Visualiza&ccedil;&otilde;es p&uacute;blicas do YouTube</code>. "Engajamento" = <code>Engajamentos</code>; taxa de engajamento = valor reportado pelo Google Ads (n&atilde;o &eacute; engajamentos &divide; impress&otilde;es). Minigr&aacute;ficos = valor di&aacute;rio da s&eacute;rie do Google Ads; para Engajamentos e Taxa de engajamento a s&eacute;rie di&aacute;ria &eacute; a de <em>Intera&ccedil;&otilde;es</em> e <em>Taxa de intera&ccedil;&atilde;o</em> (soma di&aacute;ria 45.597, contra 45.438 engajamentos no relat&oacute;rio); a linha de Visualiza&ccedil;&otilde;es p&uacute;blicas do YouTube &eacute; estimada a partir do print.
   </div>
 
-  <div class="panel">
-    <div class="panel">
-    <div class="panel" id="sec-fases">
+  <div class="panel" id="sec-fases">
     <div class="panel-head"><h2>4 - Fases do projeto</h2><span class="note">Fase 1 &middot; 22&ndash;25/09 &nbsp;|&nbsp; Fase 2 &middot; 26/09&ndash;22/10</span></div>
     <div class="stage-card-row" id="phaseCards" style="grid-template-columns:repeat(auto-fit,minmax(260px,1fr));margin-bottom:18px;"></div>
     <div style="overflow-x:auto;"><table id="phaseTable" style="min-width:760px;">
@@ -330,9 +347,44 @@
   </div>
   </div>
 
-  <div class="panel" id="sec-detalhe">
-    <div class="panel">
-    <div class="panel-head"><h2>10 - Notas metodol&oacute;gicas &amp; defini&ccedil;&otilde;es</h2><span class="note">como ler os n&uacute;meros</span></div>
+    <div class="panel" id="sec-onde">
+    <div class="panel-head"><h2>10 - Onde o investimento foi</h2><span class="note">dispositivo e rede &middot; 22/09 &mdash; 22/10</span></div>
+    <div class="two-col">
+      <div>
+        <div style="font-size:11px;color:var(--ink-dim);text-transform:uppercase;letter-spacing:.06em;margin-bottom:12px;">Por dispositivo</div>
+        <div id="devMeters"></div>
+      </div>
+      <div>
+        <div style="font-size:11px;color:var(--ink-dim);text-transform:uppercase;letter-spacing:.06em;margin-bottom:12px;">Por rede</div>
+        <div id="netMeters"></div>
+      </div>
+    </div>
+    <div class="insight" id="ondeInsight"></div>
+    <div class="foot-note">Fonte: relat&oacute;rios Dispositivos e Redes do Google Ads (22/09 a 22/10/2026). Barras = % do custo total.</div>
+  </div>
+
+  <div class="panel" id="sec-publico">
+    <div class="panel-head"><h2>11 - Perfil do p&uacute;blico</h2><span class="note">impress&otilde;es por idade e sexo</span></div>
+    <div class="mini-cards" id="sexCards"></div>
+    <div style="position:relative;height:300px;"><canvas id="ageChart"></canvas></div>
+    <div class="foot-note">Fonte: Informa&ccedil;&otilde;es demogr&aacute;ficas do Google Ads (22/09 a 22/10/2026). Percentuais = &quot;porcentagem do total conhecido&quot; informada pelo Google (a soma por sexo passa de 100% por arredondamento); impress&otilde;es sem sexo ou idade identificados n&atilde;o entram.</div>
+  </div>
+
+  <div class="panel" id="sec-horario">
+    <div class="panel-head"><h2>12 - Quando o an&uacute;ncio foi visto</h2><span class="note">impress&otilde;es por dia da semana e hora</span></div>
+    <div class="two-col" style="margin-bottom:18px;">
+      <div><div style="font-size:11px;color:var(--ink-dim);text-transform:uppercase;letter-spacing:.06em;margin-bottom:10px;">Por dia da semana</div><div style="position:relative;height:240px;"><canvas id="dowChart"></canvas></div></div>
+      <div><div style="font-size:11px;color:var(--ink-dim);text-transform:uppercase;letter-spacing:.06em;margin-bottom:10px;">Por hora do dia</div><div style="position:relative;height:240px;"><canvas id="hourChart"></canvas></div></div>
+    </div>
+    <div style="font-size:11px;color:var(--ink-dim);text-transform:uppercase;letter-spacing:.06em;margin-bottom:10px;">Mapa de calor &middot; dia &times; hora</div>
+    <div class="heat" id="heatMap"></div>
+    <div class="heat-legend">menos <i></i> mais impress&otilde;es</div>
+    <div class="insight" id="horarioInsight"></div>
+    <div class="foot-note">Fonte: Dia e hora do Google Ads (22/09 a 22/10/2026). Total = 195.102 impress&otilde;es. Hor&aacute;rio de in&iacute;cio de cada faixa, no fuso da conta.</div>
+  </div>
+
+  <div class="panel">
+    <div class="panel-head"><h2>13 - Notas metodol&oacute;gicas &amp; defini&ccedil;&otilde;es</h2><span class="note">como ler os n&uacute;meros</span></div>
     <table class="notes-table">
       <tr><td class="nkey">Fonte dos dados</td><td class="nval"><strong>Google Ads</strong>, <code>Relat&oacute;rio de campanha.csv</code> (22 set &ndash; 22 out 2026), totais por campanha. Soma das 4 campanhas = <strong>R$ 1.323,81</strong>, igual ao total do relat&oacute;rio.</td></tr>
       <tr><td class="nkey">Fases</td><td class="nval"><strong>Fase 1 &middot; Ac&uacute;stico Bandas Ga&uacute;chas (22 a 25/09)</strong>: <code>u01A | [YT] [Exibi&ccedil;&atilde;o]</code> e <code>u01B | [Alcance]</code>. <strong>Fase 2 &middot; Rock do Mil&ecirc;nio (26/09 a 22/10)</strong>: <code>u02A | [YT] [Exibi&ccedil;&atilde;o]</code> e <code>u02B | YT [Alcance]</code>.</td></tr>
@@ -513,6 +565,60 @@ KEYS.forEach((k,i)=>{document.getElementById('stageFoot'+i).innerHTML=foot[k]+' 
       scales:{x:{ticks:{color:'#8b919d',autoSkip:true,maxRotation:0,maxTicksLimit:12},grid:{display:false}},
         y:{min:0,max:105,ticks:{display:false,stepSize:50},grid:{color:'#2a2e38'},border:{display:false}}}}});
   box.querySelectorAll('.gs-tile:not(.static)').forEach(el=>el.addEventListener('click',()=>{const i=+el.dataset.i;const vis=ch.isDatasetVisible(i);ch.setDatasetVisibility(i,!vis);el.classList.toggle('off',vis);ch.update();}));
+  // minigráficos dos quadros do bloco 3 (séries diárias; só onde há dado diário)
+  const TV=[0, 0, 2889, 3102, 216, 421, 543, 369, 600, 730, 554, 811, 903, 1178, 1281, 1210, 1285, 1072, 1163, 1371, 693, 1185, 1377, 1107, 1119, 1294, 1216, 1077, 1094, 1225, 1298], INT=[0, 0, 3841, 4043, 360, 704, 874, 652, 856, 1096, 894, 1232, 1307, 1655, 1695, 1697, 1785, 1498, 1583, 1919, 1017, 1676, 1904, 1577, 1610, 1842, 1792, 1499, 1515, 1662, 1812], RATE=[0.0, 0.0, 20.62, 11.16, 11.3, 10.08, 12.11, 9.04, 22.5, 21.35, 22.67, 25.58, 29.1, 33.41, 32.56, 32.01, 35.63, 33.49, 32.86, 31.1, 24.45, 30.81, 31.65, 30.87, 34.48, 34.66, 29.18, 27.8, 31.41, 34.57, 32.1]; // série diária do Google Ads (Visualizações do TrueView, Interações, Taxa de interação)
+  const sp={0:G.map(r=>r[2]),1:G.map(r=>r[1]),2:G.map(r=>r[4]),3:TV,4:G.map(r=>r[3]||0),5:G.map(r=>r[1]?r[2]/r[1]*1000:0),6:INT,7:RATE};
+  Object.keys(sp).forEach(i=>{const card=document.querySelectorAll('#kpiGrid .kpi')[i];if(!card)return;
+    const c=document.createElement('canvas');c.className='spark';c.id='spark'+i;card.appendChild(c);sparkline('spark'+i,sp[i],kpis[i].color);});
+})();
+</script>
+
+<script>
+(function(){
+  const money=v=>'R$ '+Number(v).toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2});
+  const num=v=>Number(v).toLocaleString('pt-BR',{maximumFractionDigits:0});
+  const pc1=v=>v.toFixed(1).replace('.',',')+'%';
+  const axisC='#8b919d',gridC='#2a2e38';
+  // ---- 10: dispositivo e rede ----
+  const dev=[['Telas de TV',794.98,1],['Smartphones',435.60,301],['Computadores',77.23,2],['Tablets',15.99,7]];
+  const net=[['YouTube',959.25,7],['Rede de Display',364.55,304]];
+  const meters=(rows,id)=>{const tot=rows.reduce((a,r)=>a+r[1],0);
+    document.getElementById(id).innerHTML=rows.map(r=>'<div class="meter-row"><div class="meter-head"><b>'+r[0]+'</b><span>'+money(r[1])+' &middot; '+pc1(r[1]/tot*100)+' do custo &middot; '+num(r[2])+' clique'+(r[2]===1?'':'s')+'</span></div><div class="meter-bar"><div class="meter-fill" style="width:'+(r[1]/tot*100)+'%;"></div></div></div>').join('');return tot;};
+  const dTot=meters(dev,'devMeters'),nTot=meters(net,'netMeters');
+  const tv=dev[0],sm=dev[1],yt=net[0],dn=net[1];
+  document.getElementById('ondeInsight').innerHTML='<strong>Leitura:</strong> telas de TV concentraram <strong>'+pc1(tv[1]/dTot*100)+'</strong> do custo ('+money(tv[1])+') e geraram '+num(tv[2])+' clique; smartphones ficaram com '+pc1(sm[1]/dTot*100)+' do custo e '+num(sm[2])+' cliques. Por rede, o YouTube respondeu por '+pc1(yt[1]/nTot*100)+' do custo e a Rede de Display por '+pc1(dn[1]/nTot*100)+', mas quase todos os cliques ('+num(dn[2])+' de '+num(yt[2]+dn[2])+') vieram da Rede de Display. Em campanhas de v&iacute;deo o objetivo &eacute; alcance e visualiza&ccedil;&atilde;o, ent&atilde;o clique n&atilde;o &eacute; a m&eacute;trica principal.';
+  // ---- 11: p&uacute;blico ----
+  const ages=['18 a 24','25 a 34','35 a 44','45 a 54','55 a 64','+65'];
+  const male=[6656,28565,30381,27312,24770,13455],fem=[3506,16065,12273,9946,10067,5607];
+  document.getElementById('sexCards').innerHTML=
+    '<div class="stage-card"><div class="label">Masculino</div><div class="value"><span class="scard-num" style="color:#2dd4ea;">131.547</span><span class="scard-note">69,75% do total conhecido</span></div></div>'+
+    '<div class="stage-card"><div class="label">Feminino</div><div class="value"><span class="scard-num" style="color:#ff7a3d;">57.790</span><span class="scard-note">30,64% do total conhecido</span></div></div>';
+  const base={ticks:{color:axisC},grid:{color:gridC}};
+  new Chart(document.getElementById('ageChart'),{type:'bar',
+    data:{labels:ages,datasets:[{label:'Masculino',data:male,backgroundColor:'#2dd4ea',borderRadius:3},{label:'Feminino',data:fem,backgroundColor:'#ff7a3d',borderRadius:3}]},
+    options:{responsive:true,maintainAspectRatio:false,interaction:{mode:'index',intersect:false},
+      plugins:{legend:{labels:{color:axisC,font:{family:'monospace',size:11}}},tooltip:{callbacks:{label:it=>it.dataset.label+': '+num(it.parsed.y)+' impress\u00f5es'}}},
+      scales:{x:{stacked:true,ticks:{color:axisC},grid:{display:false}},y:{stacked:true,ticks:{color:axisC,callback:v=>num(v)},grid:{color:gridC}}}}});
+  // ---- 12: dia e hora ----
+  const dn7=['Segunda','Terça','Quarta','Quinta','Sexta','Sábado','Domingo'];
+  const H=[[687, 692, 444, 399, 237, 291, 364, 492, 491, 498, 472, 479, 858, 1144, 1115, 1452, 1372, 1456, 1639, 1785, 1784, 1927, 1157, 490], [773, 610, 534, 361, 370, 378, 639, 705, 567, 658, 737, 613, 831, 789, 929, 1168, 1398, 1907, 1675, 1627, 1971, 1669, 1192, 581], [855, 529, 327, 303, 201, 377, 532, 660, 560, 585, 625, 669, 884, 889, 1140, 1421, 1299, 1042, 1386, 1335, 1394, 1251, 1190, 476], [569, 526, 321, 215, 182, 288, 579, 676, 613, 747, 4454, 909, 1013, 1029, 1489, 1321, 1435, 1457, 1641, 4338, 5164, 4868, 3661, 2027], [3342, 1851, 1013, 622, 527, 579, 752, 954, 1318, 1652, 1877, 2344, 2691, 2667, 2755, 2841, 2842, 2560, 2892, 2957, 3486, 3019, 2320, 1460], [507, 450, 293, 249, 156, 188, 286, 369, 480, 551, 571, 627, 1151, 995, 935, 1234, 1378, 1462, 1189, 1268, 1108, 1030, 1058, 598], [1197, 763, 450, 293, 196, 330, 418, 509, 595, 680, 730, 880, 1010, 1103, 1059, 1168, 1388, 1766, 2006, 1889, 1527, 1618, 1750, 464]]; // Seg..Dom x 0..23 (impress&otilde;es)
+  const dow=H.map(r=>r.reduce((a,b)=>a+b,0)),hour=Array.from({length:24},(_,h)=>H.reduce((a,r)=>a+r[h],0));
+  const maxDow=Math.max(...dow);
+  new Chart(document.getElementById('dowChart'),{type:'bar',
+    data:{labels:dn7,datasets:[{data:dow,backgroundColor:dow.map(v=>v===maxDow?'#ff7a3d':'#8b5cf6'),borderRadius:4}]},
+    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:it=>num(it.parsed.y)+' impress\u00f5es'}}},
+      scales:{x:{ticks:{color:axisC},grid:{display:false}},y:{ticks:{color:axisC,callback:v=>num(v)},grid:{color:gridC}}}}});
+  new Chart(document.getElementById('hourChart'),{type:'line',
+    data:{labels:hour.map((_,h)=>String(h).padStart(2,'0')+'h'),datasets:[{data:hour,borderColor:'#22d3ee',backgroundColor:'rgba(34,211,238,.15)',fill:true,borderWidth:2,pointRadius:0,tension:.35}]},
+    options:{responsive:true,maintainAspectRatio:false,interaction:{mode:'index',intersect:false},plugins:{legend:{display:false},tooltip:{callbacks:{label:it=>num(it.parsed.y)+' impress\u00f5es'}}},
+      scales:{x:{ticks:{color:axisC,autoSkip:true,maxTicksLimit:12,maxRotation:0},grid:{display:false}},y:{ticks:{color:axisC,callback:v=>num(v)},grid:{color:gridC}}}}});
+  const mx=Math.max(...H.flat());
+  let hm='<div></div>'+Array.from({length:24},(_,h)=>'<div class="hh">'+(h%3===0?String(h).padStart(2,'0'):'')+'</div>').join('');
+  H.forEach((r,i)=>{hm+='<div class="hl">'+dn7[i].slice(0,3)+'</div>'+r.map((v,h)=>'<div class="hc" title="'+dn7[i]+' '+String(h).padStart(2,'0')+'h: '+num(v)+' impress\u00f5es" style="background:rgba(255,122,61,'+(0.06+0.94*v/mx).toFixed(3)+');"></div>').join('');});
+  document.getElementById('heatMap').innerHTML=hm;
+  const topH=hour.indexOf(Math.max(...hour)),peak=(()=>{let b=[0,0,0];H.forEach((r,i)=>r.forEach((v,h)=>{if(v>b[0])b=[v,i,h];}));return b;})();
+  const topDow=dow.indexOf(maxDow),lowDow=dow.indexOf(Math.min(...dow));
+  document.getElementById('horarioInsight').innerHTML='<strong>Leitura:</strong> '+dn7[topDow]+' concentrou mais impress&otilde;es ('+num(maxDow)+', '+pc1(maxDow/dow.reduce((a,b)=>a+b,0)*100)+' do total) e '+dn7[lowDow]+' menos ('+num(dow[lowDow])+'). Por hora, o pico &eacute; &agrave;s '+String(topH).padStart(2,'0')+'h ('+num(hour[topH])+'); o maior ponto do mapa &eacute; '+dn7[peak[1]].toLowerCase()+' &agrave;s '+String(peak[2]).padStart(2,'0')+'h ('+num(peak[0])+'). A entrega &eacute; maior no per&iacute;odo da noite (19h &agrave;s 22h). Aten&ccedil;&atilde;o: quinta e sexta incluem 24 e 25/09, os dias de lan&ccedil;amento da campanha (54.862 impress&otilde;es), o que infla esses dois dias da semana.';
 })();
 </script>
 
